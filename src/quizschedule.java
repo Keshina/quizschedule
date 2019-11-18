@@ -67,6 +67,25 @@ import java.io.IOException;
 //@WebServlet("/src/quizschedule")
 @WebServlet("/quizschedule")
 public class quizschedule extends HttpServlet {
+	// Data files
+		// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
+		// These names show up in all servlets
+		private static final String dataLocation = serverUtils.getDatalocation();
+		static private final String separator = serverUtils.getSeparator();
+		private static final String courseBase = serverUtils.getCoursebase();
+		private static final String quizzesBase = serverUtils.getQuizzesbase();
+		private static final String retakesBase = serverUtils.getRetakesbase();
+		private static final String apptsBase = serverUtils.getApptsbase();
+
+		// Filenames to be built from above and the courseID parameter
+		private String courseFileName;
+		private String quizzesFileName;
+		private String retakesFileName;
+		private String apptsFileName;
+		
+		private static int daysAvailable = serverUtils.getDaysAvailable();
+
+	
 	/*// Data files
 	// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
 	// These names show up in all servlets
@@ -122,8 +141,7 @@ public class quizschedule extends HttpServlet {
 
 			courseBean course;
 			courseReader cr = new courseReader();
-			courseFileName = serverUtils.getDatalocation()+serverUtils.getCoursebase()+"-"+ courseID + ".xml";
-			//courseFileName = dataLocation + courseBase + "-" + courseID + ".xml";
+			courseFileName = dataLocation + courseBase + "-" + courseID + ".xml";
 			try {
 				course = cr.read(courseFileName);
 			} catch (Exception e) {
@@ -187,7 +205,8 @@ public class quizschedule extends HttpServlet {
 			addAppointment(response, request);
 		if (query.equals("addQuiz")) {
 			try {
-				addQuiz(response, request);
+				QuizUtils q = new QuizUtils();
+				q.addQuiz(response, request, courseID);
 			} catch (ParserConfigurationException | SAXException | TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -314,7 +333,7 @@ public class quizschedule extends HttpServlet {
 
 	}
 
-	private void addQuiz(HttpServletResponse response, HttpServletRequest request)
+	/*private void addQuiz(HttpServletResponse response, HttpServletRequest request)
 			throws IOException, ServletException, ParserConfigurationException, SAXException, TransformerException {
 		// No saving if IOException
 		boolean IOerrFlag = false;
@@ -392,14 +411,14 @@ public class quizschedule extends HttpServlet {
 							StreamResult result = new StreamResult(new File(quizFileName));
 							transformer.transform(source, result);
 							
-							/*RequestDispatcher dispatcher = getServletContext()
+							RequestDispatcher dispatcher = getServletContext()
 									.getRequestDispatcher(thisServlet.replace("quizschedule", "admin.jsp"));
-							dispatcher.forward(request, response);*/
+							dispatcher.forward(request, response);
 						} catch (Exception e) {
 							e.printStackTrace();
 							IOerrMessage = "I failed and could not save your quiz.";
-							/*String destinationAddress = "/admin.jsp";
-							servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);*/
+							String destinationAddress = "/admin.jsp";
+							servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);
 							
 							pf.printDataForAdmin(request, response, IOerrMessage);
 
@@ -419,8 +438,8 @@ public class quizschedule extends HttpServlet {
 				pf.printDataForAdmin(request, response, successMessage);
 
 				
-				/*String destinationAddress = "/admin.jsp";
-				servletUtils.displayMessage(successMessage, destinationAddress, request, response);*/
+				String destinationAddress = "/admin.jsp";
+				servletUtils.displayMessage(successMessage, destinationAddress, request, response);
 			}
 
 			catch (IOException e) {
@@ -430,19 +449,19 @@ public class quizschedule extends HttpServlet {
 
 			// Respond to the student
 			if (IOerrFlag) {
-				/*String destinationAddress = "/admin.jsp";
-				servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);*/
+				String destinationAddress = "/admin.jsp";
+				servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);
 				pf.printDataForAdmin(request, response, IOerrMessage);
 
 			} 
 
 		} else {
-			/*TO BE DELETED
+			TO BE DELETED
 			 * // quizDate == null or quizDate.length() > 0 or quizTime !=null or
 			// quizTime.length()>0
 			//out.println("<body bgcolor=\"#DDEEDD\">");
 			//if (quizDate == null || quizTime == null)
-*/				IOerrMessage ="You didn't specify the quiz date and time.";
+				IOerrMessage ="You didn't specify the quiz date and time.";
 
 			thisServlet = (request.getRequestURL()).toString();
 			System.out.println("thisServlet");
@@ -450,20 +469,20 @@ public class quizschedule extends HttpServlet {
 			// requestURL
 			//thisServlet = thisServlet.replace("http", "https");
 			//thisServlet = thisServlet.replace("8080", "8443");
-			/*String destinationAddress = "/admin.jsp";
-			servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);*/
+			String destinationAddress = "/admin.jsp";
+			servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);
 
 			pf = readAllData(courseID,course);
 
 			pf.printDataForAdmin(request, response, IOerrMessage);
 
-			/*out.println(
-					"<p><a href='" + thisServlet + "?courseID=" + courseID + "'>You can try again if you like.</a>");*/
+			out.println(
+					"<p><a href='" + thisServlet + "?courseID=" + courseID + "'>You can try again if you like.</a>");
 		}
 
-	}
+	}*/
 
-	protected void appendNewQuiz(HttpServletRequest request, HttpServletResponse response, String quizFile)
+	/*protected void appendNewQuiz(HttpServletRequest request, HttpServletResponse response, String quizFile)
 			throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		String quizFileName =	dataLocation + quizzesBase + "-" + courseID + ".xml";
  
@@ -529,7 +548,7 @@ public class quizschedule extends HttpServlet {
 			transformer.transform(source, result);
 
 		}
-	}
+	}*/
 }
 
 // end quizschedule class

@@ -25,9 +25,25 @@ import org.xml.sax.SAXException;
  *
  */
 public class QuizUtils {
-
 	
-	private void addQuiz(HttpServletResponse response, HttpServletRequest request)
+	// Data files
+			// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
+			// These names show up in all servlets
+			private static final String dataLocation = serverUtils.getDatalocation();
+			static private final String separator = serverUtils.getSeparator();
+			private static final String courseBase = serverUtils.getCoursebase();
+			private static final String quizzesBase = serverUtils.getQuizzesbase();
+			private static final String retakesBase = serverUtils.getRetakesbase();
+			private static final String apptsBase = serverUtils.getApptsbase();
+
+			// Filenames to be built from above and the courseID parameter
+			private String courseFileName;
+			private String quizzesFileName;
+			private String retakesFileName;
+			private String apptsFileName;
+			private String thisServlet;
+			
+	protected void addQuiz(HttpServletResponse response, HttpServletRequest request,String courseID)
 			throws IOException, ServletException, ParserConfigurationException, SAXException, TransformerException {
 		// No saving if IOException
 		boolean IOerrFlag = false;
@@ -119,7 +135,7 @@ public class QuizUtils {
 
 						}
 					} else
-						appendNewQuiz(request, response, quizFileName); // add quiz to existing xml file
+						appendNewQuiz(request, response, quizFileName, courseID); // add quiz to existing xml file
 					// TO DO: need to add request Dispatcher code here
 				}// end synchronize block
 				
@@ -174,5 +190,73 @@ public class QuizUtils {
 					"<p><a href='" + thisServlet + "?courseID=" + courseID + "'>You can try again if you like.</a>");*/
 		}
 
+	}
+	
+	protected void appendNewQuiz(HttpServletRequest request, HttpServletResponse response, String quizFile, String courseID)
+			throws ParserConfigurationException, SAXException, IOException, TransformerException {
+		String quizFileName =	dataLocation + quizzesBase + "-" + courseID + ".xml";
+ 
+				//dataLocation + "quizFile" + courseID + ".xml"; //Kesina's test file
+
+		String quizDate = request.getParameter("quizDate");
+		String quizTime = request.getParameter("quizTime");
+
+		String repeatCount = request.getParameter("repeatCount");
+
+		int count = 1;
+		if (repeatCount != null && !repeatCount.isEmpty() && !repeatCount.equals("0"))
+			count = Integer.parseInt(repeatCount);
+
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		org.w3c.dom.Document document = documentBuilder.parse(quizFileName);
+		Element root = document.getDocumentElement();
+		int lastNodeId = root.getElementsByTagName("quiz").getLength();
+
+		for (int i = 0; i < count; i++) {
+			// server elements
+			Element quizElement = document.createElement("quiz");
+
+			// id element
+			Element id = document.createElement("id");
+			id.appendChild(document.createTextNode(String.valueOf(i + lastNodeId + 1)));
+
+			quizElement.appendChild(id);
+			// dateGiven element
+			Element dateGiven = document.createElement("dateGiven");
+			quizElement.appendChild(dateGiven);
+
+			// month element
+			Element month = document.createElement("month");
+			month.appendChild(document.createTextNode(quizDate.split("/")[0]));
+			dateGiven.appendChild(month);
+
+			// day element
+			Element day = document.createElement("day");
+			int qd = Integer.parseInt(quizDate.split("/")[1]) + 7 * i; // to increase date
+			day.appendChild(document.createTextNode(String.valueOf(qd)));
+			dateGiven.appendChild(day);
+
+			// hour element
+			Element hour = document.createElement("hour");
+			hour.appendChild(document.createTextNode(quizTime.split(":")[0]));
+			dateGiven.appendChild(hour);
+
+			// minute element
+			Element minute = document.createElement("minute");
+			minute.appendChild(document.createTextNode(quizTime.split(":")[1]));
+			dateGiven.appendChild(minute);
+
+			root.appendChild(quizElement);
+			// }
+
+			DOMSource source = new DOMSource(document);
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			StreamResult result = new StreamResult(quizFileName);
+			transformer.transform(source, result);
+
+		}
 	}
 }
