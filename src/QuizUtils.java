@@ -55,7 +55,8 @@ public class QuizUtils {
 		courseReader cr = new courseReader();
 		courseFileName = dataLocation + courseBase + "-" + courseID + ".xml";
 		course = cr.read(courseFileName);
-		printQuizScheduleForm pf = readAllData(courseID,course);
+		serverUtils su = new serverUtils();
+		printQuizScheduleForm pf = su.readAllData(courseID,course);
 		
 		
 		// Get date and time for new quiz from parameters
@@ -143,7 +144,7 @@ public class QuizUtils {
 
 				String successMessage = "Successfully saved the quiz";
 				
-				pf = readAllData(courseID,course);
+				pf = su.readAllData(courseID,course);
 
 				pf.printDataForAdmin(request, response, successMessage);
 
@@ -182,7 +183,8 @@ public class QuizUtils {
 			/*String destinationAddress = "/admin.jsp";
 			servletUtils.displayMessage(IOerrMessage, destinationAddress, request, response);*/
 
-			pf = readAllData(courseID,course);
+
+			pf = su.readAllData(courseID,course);
 
 			pf.printDataForAdmin(request, response, IOerrMessage);
 

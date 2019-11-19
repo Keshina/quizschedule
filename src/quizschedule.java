@@ -111,6 +111,7 @@ public class quizschedule extends HttpServlet {
 		private String courseID;
 	// To be set by getRequestURL()
 	private String thisServlet = "";
+	private String env="local";
 
 // doGet() : for get requests
 	@Override
@@ -119,11 +120,15 @@ public class quizschedule extends HttpServlet {
 
 		// Whoami? (Used in form)
 		thisServlet = (request.getRequestURL()).toString();
-
+ 
 		// CS server has a flaw--requires https & 8443, but puts http & 8080 on the
-		// requestURL
-		// thisServlet = thisServlet.replace("http", "https");
-		// thisServlet = thisServlet.replace("8080", "8443");
+				// requestURL
+		if(env.equals("server")) {
+			 thisServlet = thisServlet.replace("http", "https");
+			 thisServlet = thisServlet.replace("8080", "8443");
+		}
+		
+		
 
 		// CourseID must be a parameter (also in course XML file, but we need to know
 		// which course XML file ...)
@@ -156,6 +161,7 @@ public class quizschedule extends HttpServlet {
 
 			daysAvailable = Integer.parseInt(course.getRetakeDuration());
 
+			serverUtils srvrUtils = new serverUtils();
 			// TO BE DELETED 
 			//Filenames to be built from above and the courseID
 			/*String quizzesFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
@@ -173,7 +179,7 @@ public class quizschedule extends HttpServlet {
 				retakesList = rr.read(retakesFileName);
 				printQuizScheduleForm pf = new printQuizScheduleForm(quizList, retakesList, course, daysAvailable);*/
 			try {
-				printQuizScheduleForm pf = readAllData(courseID,course);
+				printQuizScheduleForm pf = srvrUtils.readAllData(courseID,course);
 				if (query == null || query.isEmpty()) {
 					pf.printForm(request, response);
 				} else
@@ -205,16 +211,17 @@ public class quizschedule extends HttpServlet {
 			addAppointment(response, request);
 		if (query.equals("addQuiz")) {
 			try {
-				QuizUtils q = new QuizUtils();
-				q.addQuiz(response, request, courseID);
+				QuizUtils qu = new QuizUtils();
+				qu.addQuiz(response, request, courseID);
 			} catch (ParserConfigurationException | SAXException | TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		else if(query.equals("addRetake")) {
+		/*else if(query.equals("addRetake")) {
 			try {
-				addRetake(response, request);
+				RetakeUtils ru = new RetakeUtils();
+				ru.addRetake(response, request);
 			} catch() {
 				e.printStackTrace();
 			}
@@ -222,18 +229,20 @@ public class quizschedule extends HttpServlet {
 		}
 		else if(query.equals("addCourse")) {
 			try {
-				addCourse(response, request);
+				CourseUtils cu = new CourseUtils();
+				cu.addCourse(response, request);
 			} catch() {
 				e.printStackTrace();
 			}
 		}
 		else if(query.equals("addAppointments")) {
 			try {
-				addAppointment(response, request);
+				AppointmentUtils au = new AppointmentUtils();
+				au.addAppointment(response, request);
 			} catch() {
 				e.printStackTrace();
 			}
-		}
+		}*/
 
 	}
 
@@ -309,29 +318,7 @@ public class quizschedule extends HttpServlet {
 
 	}
 	
-	protected printQuizScheduleForm readAllData(String courseID, courseBean course) {
-
-		printQuizScheduleForm pf = new printQuizScheduleForm();
-		// Filenames to be built from above and the courseID
-		String quizzesFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
-		String retakesFileName = dataLocation + retakesBase + "-" + courseID + ".xml";
-		String apptsFileName = dataLocation + apptsBase + "-" + courseID + ".txt";
-
-		// Load the quizzes and the retake times from disk
-		quizzes quizList = new quizzes();
-		retakes retakesList = new retakes();
-		quizReader qr = new quizReader();
-		retakesReader rr = new retakesReader();
-		try { // Read the files and print the form
-			quizList = qr.read(quizzesFileName);
-			retakesList = rr.read(retakesFileName);
-			pf = new printQuizScheduleForm(quizList, retakesList, course, daysAvailable);
-		} catch (Exception e) {
-
-		}
-		return pf;
-
-	}
+	
 
 	/*private void addQuiz(HttpServletResponse response, HttpServletRequest request)
 			throws IOException, ServletException, ParserConfigurationException, SAXException, TransformerException {

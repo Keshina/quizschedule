@@ -96,7 +96,7 @@ public class serverUtils {
 		/**
 		 * @return the daysAvailable
 		 */
-		public int getDaysAvailable() {
+		public static int getDaysAvailable() {
 			return daysAvailable;
 		}
 
@@ -167,8 +167,33 @@ public class serverUtils {
 		private String courseID;
 		// Stored in course.xml file, default 14
 		// Number of days a retake is offered after the quiz is given
-		private int daysAvailable = 14;
+		private static int daysAvailable = 14;
 
 		// To be set by getRequestURL()
 		private String thisServlet = "";
+		
+		
+		protected printQuizScheduleForm readAllData(String courseID, courseBean course) {
+
+			printQuizScheduleForm pf = new printQuizScheduleForm();
+			// Filenames to be built from above and the courseID
+			String quizzesFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
+			String retakesFileName = dataLocation + retakesBase + "-" + courseID + ".xml";
+			String apptsFileName = dataLocation + apptsBase + "-" + courseID + ".txt";
+
+			// Load the quizzes and the retake times from disk
+			quizzes quizList = new quizzes();
+			retakes retakesList = new retakes();
+			quizReader qr = new quizReader();
+			retakesReader rr = new retakesReader();
+			try { // Read the files and print the form
+				quizList = qr.read(quizzesFileName);
+				retakesList = rr.read(retakesFileName);
+				pf = new printQuizScheduleForm(quizList, retakesList, course, daysAvailable);
+			} catch (Exception e) {
+
+			}
+			return pf;
+
+		}
 }

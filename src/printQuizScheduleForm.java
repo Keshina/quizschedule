@@ -104,16 +104,21 @@ public class printQuizScheduleForm {
 			throws ServletException, IOException {
 
 		List<quizBean> allQuizzes = new ArrayList<>();
+		Map<Integer, quizBean> quizzesMap = new HashMap();
 		List<retakeBean> allRetakes = new ArrayList<>();
 		for (retakeBean r : retakesList) {
 			allRetakes.add(r);
 		}
 		for (quizBean q : quizList) {
 			allQuizzes.add(q);
+			quizzesMap.put(Integer.valueOf(q.getID()),q);
+			System.out.println(q);
+			System.out.println(q.toString()+"-----------");
 		}
 
 		req.setAttribute("allRetakes", allRetakes);
 		req.setAttribute("allQuizzes", allQuizzes);
+		req.setAttribute("quizzesMap", quizzesMap);
 		req.setAttribute("message", msg);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/admin.jsp");
