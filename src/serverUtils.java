@@ -22,7 +22,7 @@ public class serverUtils {
 		private static final String quizzesBase = "quiz-orig";
 		private static final String retakesBase = "quiz-retakes";
 		private static final String apptsBase = "quiz-appts";
-		private static final String env = "local";
+		private static final String env = "heroku";
 
 		private static final String projectName = "quizschedule";
 		// Filenames to be built from above and the courseID parameter
@@ -35,11 +35,12 @@ public class serverUtils {
 		public static String getDir()  {
 			String path = System.getProperty("user.home");
 
-//			if(env=="local")
+			if(env=="local")
 				path+=File.separator+"eclipse-workspace"+File.separator+projectName+File.separator+"src"+File.separator;
-//			else
-				//path=projectName+File.separator+"src"+File.separator;
-
+			else if (env=="heroku")
+				path=File.separator+projectName+File.separator+"src"+File.separator;
+			else if(env=="csServer")
+				path ="var/www/CS/webapps/offutt/WEB-INF/data/";
 //			String path="";
 			/*
 			 * try { path = new File("quizschedule/src/").getCanonicalPath().toString(); }
