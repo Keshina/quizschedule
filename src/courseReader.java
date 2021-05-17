@@ -8,6 +8,8 @@
 import java.lang.*;
 import java.time.*;
 import java.io.IOException;
+import java.io.InputStream;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 // XML parsers are so needy
@@ -41,11 +43,13 @@ System.out.println("In course Reader, fileName: " +filename);
 
    DocumentBuilder builder = factory.newDocumentBuilder();
    
-   Document document = builder.parse (new File (filename));
+   File file = new File(filename);
    
-/*   FileInputStream fis = new FileInputStream(filename);
-   InputSource is = new InputSource(fis);
-   Document document = builder.parse(is);*/
+//   Document document = builder.parse (new File (filename));
+   
+   InputStream fis = new FileInputStream(file);
+//   InputSource is = new InputSource(fis);
+   Document document = builder.parse(fis);
 
 System.out.println("In course Reader");
    // Get all the nodes

@@ -39,11 +39,14 @@ public class printQuizScheduleForm {
 	static private final String separator = ",";
 	
 	
-	private static final String dataLocation = "C:/Users/kesin/eclipse-workspace/quizretakes/src/";/// var/www/CS/webapps/offutt/WEB-INF/data/";
-	private static final String courseBase = "course";
-	private static final String quizzesBase = "quiz-orig";
-	private static final String retakesBase = "quiz-retakes";
-	private static final String apptsBase = "quiz-appts";
+	/*
+	 * private static final String dataLocation =
+	 * "C:/Users/kesin/eclipse-workspace/quizretakes/src/";///
+	 * var/www/CS/webapps/offutt/WEB-INF/data/"; private static final String
+	 * courseBase = "course"; private static final String quizzesBase = "quiz-orig";
+	 * private static final String retakesBase = "quiz-retakes"; private static
+	 * final String apptsBase = "quiz-appts";
+	 */
 
 	// Filenames to be built from above and the courseID parameter
 	private String courseFileName;
@@ -59,10 +62,10 @@ public class printQuizScheduleForm {
 		this.quizList = quizList;
 		this.retakesList = retakesList;
 		this.course = course;
-		today = LocalDate.of(2019, 02, 14);// LocalDate.now();
+		today = LocalDate.of(2021, 01, 10);// LocalDate.now();
 		startSkip = course.getStartSkip();
 		endSkip = course.getEndSkip();
-		endDay = today.plusDays(new Long(daysAvailable));
+		endDay = today.plusDays(Long.valueOf(daysAvailable));
 		origEndDay = endDay;
 		this.daysAvailable = daysAvailable;
 	}
@@ -134,8 +137,8 @@ public class printQuizScheduleForm {
 		String query = "addAppointment";
 		System.out.println(thisServlet + "-------PrintFORM-------");
 		String courseID = course.getCourseID();
-		today = LocalDate.of(2019, 02, 14);// LocalDate.now();
-		endDay = today.plusDays(new Long(daysAvailable));
+		today = LocalDate.of(2021, 2, 10);// LocalDate.now();
+		endDay = today.plusDays(Long.valueOf(daysAvailable));
 
 		if (isSkipInTwoWeeks())
 			extendEndDay();

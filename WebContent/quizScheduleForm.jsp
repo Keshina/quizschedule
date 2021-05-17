@@ -30,6 +30,7 @@
 	</div>
 				
 			<form name="setRetake" method="post" action="quizschedule">
+			<input name="query" id="query" style="display: none" value="addAppointment"></input><br>
 
 				<p>
 					Name: <input type="text" id="studentName" name="studentName"
@@ -39,6 +40,7 @@
 			<c:forEach items="${selectedRetakes}" var="r">
 
 				<tr>
+				
 					<td>${r.getDate().getDayOfWeek()},${r.getDate().getMonth()}
 						${r.getDate().getDayOfMonth()} , at ${r.timeAsString()} in
 						${r.getLocation()}</td>

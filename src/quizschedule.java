@@ -26,7 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.sun.xml.internal.txw2.Document;
+//import com.sun.xml.internal.txw2.Document;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,6 +65,8 @@ import java.io.IOException;
 2. add new function for adding retake
 3. add new function for adding appointment*/ 
 //@WebServlet("/src/quizschedule")
+
+
 @WebServlet("/quizschedule")
 public class quizschedule extends HttpServlet {
 	// Data files
@@ -85,27 +87,6 @@ public class quizschedule extends HttpServlet {
 		
 		private static int daysAvailable = serverUtils.getDaysAvailable();
 
-	
-	/*// Data files
-	// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
-	// These names show up in all servlets
-	private static final String dataLocation = "C:/Users/kesin/eclipse-workspace/quizretakes/src/";/// var/www/CS/webapps/offutt/WEB-INF/data/";
-	static private final String separator = ",";
-	private static final String courseBase = "course";
-	private static final String quizzesBase = "quiz-orig";
-	private static final String retakesBase = "quiz-retakes";
-	private static final String apptsBase = "quiz-appts";
-
-	// Filenames to be built from above and the courseID parameter
-	private String courseFileName;
-	private String quizzesFileName;
-	private String retakesFileName;
-	private String apptsFileName;
-
-	
-	// Stored in course.xml file, default 14
-	// Number of days a retake is offered after the quiz is given
-	private int daysAvailable = 14;*/
 
 	// Passed as parameter and stored in course.xml file (format: "swe437")
 		private String courseID;
@@ -134,6 +115,7 @@ public class quizschedule extends HttpServlet {
 		// which course XML file ...)
 		courseID = request.getParameter("courseID");
 		String query = request.getParameter("query");
+		System.out.println(query+"query");
 		String destinationAddress;
 		if (courseID == null || courseID.isEmpty()) {
 			String message = "Invalid course id. Please try again";
@@ -162,22 +144,7 @@ public class quizschedule extends HttpServlet {
 			daysAvailable = Integer.parseInt(course.getRetakeDuration());
 
 			serverUtils srvrUtils = new serverUtils();
-			// TO BE DELETED 
-			//Filenames to be built from above and the courseID
-			/*String quizzesFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
-			String retakesFileName = dataLocation + retakesBase + "-" + courseID + ".xml";
-			String apptsFileName = dataLocation + apptsBase + "-" + courseID + ".txt";
-
-			// Load the quizzes and the retake times from disk
-			quizzes quizList = new quizzes();
-			retakes retakesList = new retakes();
-			quizReader qr = new quizReader();
-			retakesReader rr = new retakesReader();
-
-			try { // Read the files and print the form
-				quizList = qr.read(quizzesFileName);
-				retakesList = rr.read(retakesFileName);
-				printQuizScheduleForm pf = new printQuizScheduleForm(quizList, retakesList, course, daysAvailable);*/
+		
 			try {
 				printQuizScheduleForm pf = srvrUtils.readAllData(courseID,course);
 				if (query == null || query.isEmpty()) {
@@ -207,6 +174,7 @@ public class quizschedule extends HttpServlet {
 		// Filename to be built from above and the courseID
 		// courseID = request.getParameter("courseID");
 		String query = request.getParameter("query");
+		System.out.println("quer"+thisServlet);
 		if (query.equals("addAppointment"))
 			addAppointment(response, request);
 		if (query.equals("addQuiz")) {

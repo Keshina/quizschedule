@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
 /**
  * 
  */
@@ -6,23 +10,46 @@
  * @author kesin
  *
  */
+//TO DO: need to fix dataLocation
 public class serverUtils {
 	// Data files
 		// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
 		// These names show up in all servlets
-		private static final String dataLocation = "C:/Users/kesin/eclipse-workspace/quizretakes/src/";/// var/www/CS/webapps/offutt/WEB-INF/data/";
+		private static final String dataLocation =getDir();
+				//"C:/Users/Kesina/eclipse-workspace/quizschedule/src/";/// var/www/CS/webapps/offutt/WEB-INF/data/";
 		static private final String separator = ",";
 		private static final String courseBase = "course";
 		private static final String quizzesBase = "quiz-orig";
 		private static final String retakesBase = "quiz-retakes";
 		private static final String apptsBase = "quiz-appts";
+		private static final String env = "local";
 
+		private static final String projectName = "quizschedule";
 		// Filenames to be built from above and the courseID parameter
 		private String courseFileName;
 		private String quizzesFileName;
 		private String retakesFileName;
 		private String apptsFileName;
 
+		
+		public static String getDir()  {
+			String path = System.getProperty("user.home");
+
+//			if(env=="local")
+				path+=File.separator+"eclipse-workspace"+File.separator+projectName+File.separator+"src"+File.separator;
+//			else
+				//path=projectName+File.separator+"src"+File.separator;
+
+//			String path="";
+			/*
+			 * try { path = new File("quizschedule/src/").getCanonicalPath().toString(); }
+			 * catch (IOException e) { // TODO Auto-generated catch block
+			 * e.printStackTrace(); path=""; }
+			 */
+		//	path = Paths.get("").toAbsolutePath().toString();
+			System.out.println(path);
+			return path;
+		}
 		/**
 		 * @return the courseFileName
 		 */
