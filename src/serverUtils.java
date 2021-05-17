@@ -33,13 +33,13 @@ public class serverUtils {
 
 		
 		public static String getDir()  {
-			String path = System.getProperty("user.home");
-
-			if(env=="local")
-				path+=File.separator+"eclipse-workspace"+File.separator+projectName+File.separator+"src"+File.separator;
-			else if (env=="heroku")
+			String home = System.getProperty("user.home");
+			String path="";
+			if(env.equals("local"))
+				path=home+File.separator+"eclipse-workspace"+File.separator+projectName+File.separator+"src"+File.separator;
+			else if (env.equals("heroku"))
 				path=File.separator+projectName+File.separator+"src"+File.separator;
-			else if(env=="csServer")
+			else if(env.equals("csServer"))
 				path ="var/www/CS/webapps/offutt/WEB-INF/data/";
 //			String path="";
 			/*

@@ -92,7 +92,7 @@ public class quizschedule extends HttpServlet {
 		private String courseID;
 	// To be set by getRequestURL()
 	private String thisServlet = "";
-	private String env="local";
+	private String env="heroku";
 
 // doGet() : for get requests
 	@Override
@@ -104,7 +104,7 @@ public class quizschedule extends HttpServlet {
  
 		// CS server has a flaw--requires https & 8443, but puts http & 8080 on the
 				// requestURL
-		if(env.equals("server")) {
+		if(env.equals("csServer")) {
 			 thisServlet = thisServlet.replace("http", "https");
 			 thisServlet = thisServlet.replace("8080", "8443");
 		}
