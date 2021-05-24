@@ -27,6 +27,7 @@ public class printQuizScheduleForm {
 	boolean retakePrinted = false;
 	quizzes quizList;
 	retakes retakesList;
+	appts apptsList;
 	courseBean course;
 	LocalDate startSkip;
 	LocalDate endSkip;
@@ -58,9 +59,10 @@ public class printQuizScheduleForm {
 	printQuizScheduleForm(){
 		
 	}
-	printQuizScheduleForm(quizzes quizList, retakes retakesList, courseBean course, int daysAvailable) {
+	printQuizScheduleForm(quizzes quizList, retakes retakesList, appts apptsList, courseBean course, int daysAvailable) {
 		this.quizList = quizList;
 		this.retakesList = retakesList;
+		this.apptsList = apptsList;
 		this.course = course;
 		today = LocalDate.of(2021, 01, 10);// LocalDate.now();
 		startSkip = course.getStartSkip();
@@ -101,6 +103,43 @@ public class printQuizScheduleForm {
 		}
 		return lastAvailableDay;
 	}
+	
+	protected void printApptScheduleResponse(HttpServletRequest req, HttpServletResponse resp, String msg, String name) throws ServletException, IOException {
+		
+		String message = "";
+		String result = "";
+		if (msg.equals("failure")){
+			message= "Oops! There was a glitch and your appointment could not be saved.";
+			result="failed";
+
+		}
+		else if(msg.equals("noName") ) {
+			message ="You didn't give a name. No anonymous quiz retakes allowed.";
+			result="failed";
+
+		}
+		else if (msg.equals("noQuiz")) {
+			message= "You didn't choose any quizzes to retake.";
+			result="failed";
+
+		}
+		else if(msg.equals("successOne")) {
+			message= name + ", your appointment has been scheduled.";
+			result="success";
+
+		}
+		
+		else if (msg.equals("successMultiple")) {
+			message = name + ", your appointments have been scheduled."; 
+			result="success";
+		}
+		req.setAttribute("message", message);
+		req.setAttribute("result", result);
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/apptResponse.jsp");
+		dispatcher.forward(req, resp);
+	
+	}
 
 	//sends all relevant data for adminView
 	protected void printDataForAdmin(HttpServletRequest req, HttpServletResponse resp, String msg)
@@ -109,19 +148,79 @@ public class printQuizScheduleForm {
 		List<quizBean> allQuizzes = new ArrayList<>();
 		Map<Integer, quizBean> quizzesMap = new HashMap();
 		List<retakeBean> allRetakes = new ArrayList<>();
+		Map<Integer,String> retakeToPrint = new HashMap();
+		Map<Integer, String> quizToPrint = new HashMap();
+		Map<Integer,HashMap> apptToPrint = new HashMap();
+
+		List<apptBean> allAppts = new ArrayList<>();
+		List<String> appListToPrint = new ArrayList<>();
+		List<String> retakeListToPrint = new ArrayList<>();
+		Map<Integer, String> quizMapToPrint = new HashMap();
+
+
+		
+		
 		for (retakeBean r : retakesList) {
 			allRetakes.add(r);
+			retakeListToPrint.add(r.retakeToPrint());
+			Integer id = r.getID();
+			retakeToPrint.put(id,r.retakeToPrint());
+			
+			
 		}
 		for (quizBean q : quizList) {
 			allQuizzes.add(q);
-			quizzesMap.put(Integer.valueOf(q.getID()),q);
-			System.out.println(q);
-			System.out.println(q.toString()+"-----------");
+			quizzesMap.put(Integer.valueOf(q.getID()),q); //old way for admin.jsp
+			quizMapToPrint.put(Integer.valueOf(q.getID()),q.quizToPrint());
+//			System.out.println(q);
+//			System.out.println(q.toString()+"-----------");
+			
 		}
+		HashMap retakeAppt = new HashMap();
+		HashMap <Integer,HashMap>quizAppt = new HashMap();
+		for (apptBean a: apptsList) {
+			
+			String studentDetail ="";
+			Integer rId = a.getRetakeID();
+			Integer qId = a.getQuizID();
+			String retakeDetail = retakeToPrint.get(rId);
+			retakeAppt.put(rId, retakeDetail);
+			
+			if(quizAppt.containsKey(rId)) {
+				HashMap quizAndStudent = (HashMap) quizAppt.get(rId);
+				if(quizAndStudent.containsKey(qId)) {
+					String studentList = (String) quizAndStudent.get(qId);
+					studentList+=", "+a.getName();
+					quizAndStudent.put(qId,studentList);
+				}
+				else {
+					quizAndStudent.put(qId,a.getName());
+				}
+			}
+				else {
+					HashMap temp =  new HashMap();
+					temp.put(qId, a.getName());
+					quizAppt.put(rId, temp);
+				}
+		}
+		
+		for (Integer retakeId : quizAppt.keySet())	{	
+			
+			HashMap<Integer,String> temp = quizAppt.get(retakeId);
+			String retakeDetail = (String) retakeAppt.get(retakeId);
+			String studentDetail="&emsp;";
+			for (Integer quizId : temp.keySet())	{	
+			 studentDetail += "Quiz "+quizId+" : "+temp.get(quizId)+"<br>&emsp;";
+			}
+			String toPrint = retakeDetail+"<br>"+studentDetail;
+			appListToPrint.add(toPrint);
+		}		
 
-		req.setAttribute("allRetakes", allRetakes);
+		req.setAttribute("allRetakes", retakeListToPrint); //old way for admin.jsp was allRetakes
 		req.setAttribute("allQuizzes", allQuizzes);
-		req.setAttribute("quizzesMap", quizzesMap);
+//		req.setAttribute("quizzesMap", quizzesMap); //old way for admin.jsp
+		req.setAttribute("quizzesMap", quizMapToPrint);
+		req.setAttribute("allAppts", appListToPrint); //old way for admin.jsp allApppts
 		req.setAttribute("message", msg);
 
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/admin.jsp");

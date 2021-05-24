@@ -1,7 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 <courses>
   <course> <!-- Maybe in the future all in one XML file? -->
-    <courseID>swe437</courseID> <!-- Used in file names and displayed -->
+    <courseID>cs123</courseID> <!-- Used in file names and displayed -->
     <courseTitle>Software testing</courseTitle> <!-- String to be displayed -->
     <retakeDuration>14</retakeDuration> <!-- int, number of days retake is possible -->
     <startSkipMonth>1</startSkipMonth>

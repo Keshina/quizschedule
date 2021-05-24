@@ -1,4 +1,6 @@
 <?xml version="1.0\" encoding="UTF-8"?>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -22,6 +24,9 @@ h2{
  margin: auto;
   width: 60%;
   padding: 10px;
+    font-size: 18px;
+  
+  text-align:center;
 
 }
 
@@ -45,31 +50,14 @@ h2{
   padding: 11px 32px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: block;
   font-size: 14px;
-  margin: 4px 2px;
+  margin: auto;
   cursor: pointer;
-}
-td {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-table tr:hover {background-color: #ddd;}
-
-
-th {
-  border: 1px solid #dddddd;
-  text-align: middle;
-  padding: 8px;
-  background-color:#b9cd6d
 }
 
 .divColor{
 background: #b9cd6d;
-}
-tr:nth-child(even) {
-  background-color: #f2f2f2;
 }
 #tabs-1 {
 	font-size: 14px;
@@ -98,6 +86,10 @@ input[type=text], select {
 </style>
 <title>Quiz Retake Scheduler</title>
 <script type='text/javascript'>
+function myFunction() {
+	history.go(-2);
+ }
+</script>
 </script>
 
 </head>
@@ -106,24 +98,22 @@ input[type=text], select {
 <hr />
 
 <div id="welcomeMsg">
-<span class="errorMsg" id="message">${message}</span>
-	<form name="getCourseId" method="get" action="quizschedule">
-		<span class="msg">Please enter the course ID given to you by your instructor. 
-			It is probably the same as the university course Id, with no spaces. </span>
+<span id="message">${message}</span>
+<c:if test="${result == 'success'}">
+<br></br>Please arrive in time to finish the quiz before the end of the retake period.<br></br>If you cannot make it, please cancel by sending email to your professor.
+</c:if>
+<c:if test="${result == 'failed'}">
+Please try again.
+</c:if>
 			<br></br>
-		<label for="courseID" class="msg">Course ID:</label> 
-		<input type="text" id="courseID" name="courseID" placeholder="Enter CourseID here"></input>
-		<button id= "submitRequest" type="submit" class="btn">Submit</button>
-		<span id="hint" style=" font-family:monospace; color:#888888"><em>Use courseID: cs123 </em></span>		
-
-	</form>
+ <button id= "back" onClick="myFunction()" class="btn">Back</button>
 
 </div>
 
 
 <p style="font-size:80%; font-family:monospace; color:#888888">
  Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
-<br/>Jan 2021
+<br/>May 2021
 </p>
 
 </body>

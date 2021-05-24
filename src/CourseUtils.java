@@ -1,3 +1,13 @@
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
+import org.xml.sax.SAXException;
+
 /**
  * 
  */
@@ -7,5 +17,12 @@
  *
  */
 public class CourseUtils {
+
+	protected void addCourse(HttpServletResponse response, HttpServletRequest request, String courseID) 			
+			throws IOException, ServletException, ParserConfigurationException, SAXException, TransformerException {
+
+		// TODO Auto-generated method stub
+		
+	}
 
 }

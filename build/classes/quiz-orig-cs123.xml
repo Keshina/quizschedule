@@ -128,7 +128,7 @@
       <dateGiven>
          <month>11</month>
          <day>18</day>
-         <hour>06</hour>
+         <hour>10</hour>
          <minute>06</minute>
       </dateGiven>
    </quiz>
@@ -137,8 +137,8 @@
       <dateGiven>
          <month>11</month>
          <day>18</day>
-         <hour>06</hour>
-         <minute>06</minute>
+         <hour>16</hour>
+         <minute>10</minute>
       </dateGiven>
    </quiz>
    <quiz>
@@ -146,8 +146,8 @@
       <dateGiven>
          <month>11</month>
          <day>19</day>
-         <hour>07</hour>
-         <minute>07</minute>
+         <hour>16</hour>
+         <minute>30</minute>
       </dateGiven>
    </quiz>
    <quiz>
@@ -155,8 +155,8 @@
       <dateGiven>
          <month>11</month>
          <day>19</day>
-         <hour>07</hour>
-         <minute>07</minute>
+         <hour>15</hour>
+         <minute>30</minute>
       </dateGiven>
    </quiz>
 </quizzes>

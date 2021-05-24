@@ -38,7 +38,7 @@ public class serverUtils {
 			if(env.equals("local"))
 				path=home+File.separator+"eclipse-workspace"+File.separator+projectName+File.separator+"src"+File.separator;
 			else if (env.equals("heroku"))
-				path=File.separator+projectName+File.separator+"src"+File.separator;
+				path=home+File.separator+"data"+File.separator;
 			else if(env.equals("csServer"))
 				path ="var/www/CS/webapps/offutt/WEB-INF/data/";
 //			String path="";
@@ -201,7 +201,7 @@ public class serverUtils {
 		private String thisServlet = "";
 		
 		
-		protected printQuizScheduleForm readAllData(String courseID, courseBean course) {
+		protected printQuizScheduleForm readAllData(String courseID, courseBean course) throws IOException {
 
 			printQuizScheduleForm pf = new printQuizScheduleForm();
 			// Filenames to be built from above and the courseID
@@ -212,14 +212,19 @@ public class serverUtils {
 			// Load the quizzes and the retake times from disk
 			quizzes quizList = new quizzes();
 			retakes retakesList = new retakes();
+			appts apptsList = new appts();
 			quizReader qr = new quizReader();
 			retakesReader rr = new retakesReader();
+			apptsReader aa = new apptsReader();
+
 			try { // Read the files and print the form
 				quizList = qr.read(quizzesFileName);
 				retakesList = rr.read(retakesFileName);
-				pf = new printQuizScheduleForm(quizList, retakesList, course, daysAvailable);
-			} catch (Exception e) {
+				apptsList = aa.read(apptsFileName);
 
+				pf = new printQuizScheduleForm(quizList, retakesList, apptsList, course, daysAvailable);
+			} catch (Exception e) {
+				System.err.println("Error reading quiz, retake or appt for admin view in serverUtils.java");
 			}
 			return pf;
 

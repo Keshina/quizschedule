@@ -18,12 +18,14 @@ public class apptsReader
 
 static private final String separator = ",";
 
-public ArrayList read (String filename) throws IOException
+public appts read (String filename) throws IOException
 {
 
    // read appointments file
-   ArrayList<apptBean> appts = new ArrayList<apptBean>();
-   apptBean a;
+//   ArrayList<apptBean> appts = new ArrayList<apptBean>();
+   appts apptList = new appts();
+   apptBean appt;
+//   apptBean a;
    File file = new File(filename);
    if (!file.exists())
    {
@@ -38,13 +40,20 @@ public ArrayList read (String filename) throws IOException
       while ((line = bw.readLine()) != null)
       {
          String[] s = line.split(separator);
-         a = new apptBean (Integer.parseInt(s[0]), Integer.parseInt(s[1]), s[2]);
-         appts.add(a);
+         int r =  Integer.parseInt(s[0].replaceAll("\\s",""));
+         int q= Integer.parseInt(s[1].replaceAll("\\s",""));
+         String n = s[2];
+         appt = new apptBean(r, q, n);
+//         appt = new apptBean (Integer.parseInt(s[0]), Integer.parseInt(s[1]), s[2].toString());
+//         a = new apptBean (Integer.parseInt(s[0]), Integer.parseInt(s[1]), s[2]);   appts.add(a);
+         apptList.addAppt(appt);
       }
       bw.close();
    }
 
-   return (appts);
+//   return (appts);
+//   System.out.println(apptList);
+   return apptList;
 } // end read
 
 } // end class

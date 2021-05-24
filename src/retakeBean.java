@@ -1,6 +1,7 @@
 
 
 import java.time.*;
+import java.util.HashMap;
 
 /**
  * This bean holds information about a quiz retake session
@@ -31,12 +32,14 @@ public class retakeBean implements Comparable<retakeBean>
    private String location;
    private LocalDate whenOffered;
    private LocalTime timeOffered;
+   private int date;
 
    public retakeBean (int ID, String location, int month, int day, int hour, int minute)
    {
       retakeID      = ID;
       this.location = location;
       int year      = Year.now().getValue();
+      Integer date = day;
       whenOffered   = LocalDate.of (year, month, day);
       timeOffered   = LocalTime.of (hour, minute);
    }
@@ -91,6 +94,13 @@ public class retakeBean implements Comparable<retakeBean>
    {
       return whenOffered.toString();
    }
+   
+   public Integer getDateOfRetake() {
+	   
+	return whenOffered.getDayOfMonth();
+	   
+	   
+   }
 
    // Time methods
    public String timeAsString ()
@@ -98,6 +108,25 @@ public class retakeBean implements Comparable<retakeBean>
       return timeOffered.toString();
    }
 
+ public String onlyCapitalizeFirstLetter(Object i) {
+	 String input = i.toString();
+	   
+	   String output = input.toLowerCase();
+	   output= output.substring(0, 1).toUpperCase()+output.substring(1);
+	   return output;
+   }
+   public String retakeToPrint() {
+//	   HashMap<String, String> tempMap = new HashMap();
+//		tempMap.put("dayOfWeek",r.getDayOfWeek().toString());
+//		tempMap.put("month", r.getMonth().toString());
+//		tempMap.put("date", r.getDateOfRetake().toString());
+//		tempMap.put("time", r.timeAsString().toString());
+//		tempMap.put("location",r.getLocation().toString());
+//		retakeToPrint.put("id", tempMap);
+	   
+	   String result = "Retake "+ getID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "+getDateOfRetake()+", at "+ timeAsString()+" in "+getLocation();
+	   return result;
+   }
 /*
    public String getQuizId() {
       return quizId;
