@@ -92,7 +92,7 @@ public class quizschedule extends HttpServlet {
 		private String courseID;
 	// To be set by getRequestURL()
 	private String thisServlet = "";
-	private String env="heroku";
+	private String env="local";
 
 // doGet() : for get requests
 	@Override

@@ -4,6 +4,7 @@ import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +65,8 @@ public class printQuizScheduleForm {
 		this.retakesList = retakesList;
 		this.apptsList = apptsList;
 		this.course = course;
-		today = LocalDate.of(2021, 01, 10);// LocalDate.now();
+		today =  LocalDate.now();
+		//today= LocalDate.of(2021, 10, 10);
 		startSkip = course.getStartSkip();
 		endSkip = course.getEndSkip();
 		endDay = today.plusDays(Long.valueOf(daysAvailable));
@@ -78,6 +80,7 @@ public class printQuizScheduleForm {
 
 			skip = true;
 		}
+		System.out.println("SKIPPED!");
 		return skip;
 	}
 
@@ -91,8 +94,8 @@ public class printQuizScheduleForm {
 	}
 
 	private void extendEndDay() {// changed-Kesina
-		Duration duration = Duration.between(startSkip, endSkip);
-		long diff = Math.abs(duration.toDays());
+		long diff = ChronoUnit.DAYS.between(startSkip, endSkip);
+//		long diff = Math.abs(duration.toDays());
 		endDay = endDay.plusDays(diff);
 	}
 
@@ -109,7 +112,7 @@ public class printQuizScheduleForm {
 		String message = "";
 		String result = "";
 		if (msg.equals("failure")){
-			message= "Oops! There was a glitch and your appointment could not be saved.";
+			message= "Oops! There was a glitch and your appointment could not be saved. If the error persists, contact your TA to schedule the retake.";
 			result="failed";
 
 		}
@@ -236,7 +239,8 @@ public class printQuizScheduleForm {
 		String query = "addAppointment";
 		System.out.println(thisServlet + "-------PrintFORM-------");
 		String courseID = course.getCourseID();
-		today = LocalDate.of(2021, 2, 10);// LocalDate.now();
+		today = LocalDate.now();
+		//today = LocalDate.of(2021, 10, 10);// 
 		endDay = today.plusDays(Long.valueOf(daysAvailable));
 
 		if (isSkipInTwoWeeks())
@@ -253,7 +257,7 @@ public class printQuizScheduleForm {
 
 		for (retakeBean r : retakesList) {
 			LocalDate retakeDay = r.getDate();
-			LocalTime retakeTime = r.getTime();
+			LocalTime retakeTime = r.getTimeStart();
 
 			if (!(retakeDay.isBefore(today)) && !(retakeDay.isAfter(endDay))) {
 				// if skip && retakeDay is after the skip week, print a white bg message

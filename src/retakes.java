@@ -18,10 +18,10 @@ public class retakes implements Iterable<retakeBean>
       retakes = new ArrayList<retakeBean>();
    }
 
-   public retakes (int ID, String location, int month, int day, int hour, int minute)
+   public retakes(int ID, String location, int month, int day, int starthour, int startminute, int endhour, int endminute)
    {
       retakes = new ArrayList<retakeBean>();
-      retakeBean qr = new retakeBean (ID, location, month, day, hour, minute);
+      retakeBean qr = new retakeBean (ID, location, month, day, starthour, startminute, endhour, endminute);
       retakes.add (qr);
    }
 

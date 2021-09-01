@@ -22,7 +22,7 @@ public class serverUtils {
 		private static final String quizzesBase = "quiz-orig";
 		private static final String retakesBase = "quiz-retakes";
 		private static final String apptsBase = "quiz-appts";
-		private static final String env = "heroku";
+		private static final String env = "local";
 
 		private static final String projectName = "quizschedule";
 		// Filenames to be built from above and the courseID parameter

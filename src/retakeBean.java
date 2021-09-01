@@ -31,17 +31,21 @@ public class retakeBean implements Comparable<retakeBean>
    private int retakeID;
    private String location;
    private LocalDate whenOffered;
-   private LocalTime timeOffered;
+   private LocalTime timeOfferedStart;
+   private LocalTime timeOfferedEnd;
+
    private int date;
 
-   public retakeBean (int ID, String location, int month, int day, int hour, int minute)
+   public retakeBean (int ID, String location, int month, int day, int starthour, int startminute, int endhour, int endminute)
    {
       retakeID      = ID;
       this.location = location;
       int year      = Year.now().getValue();
       Integer date = day;
       whenOffered   = LocalDate.of (year, month, day);
-      timeOffered   = LocalTime.of (hour, minute);
+      timeOfferedStart   = LocalTime.of (starthour, startminute);
+      timeOfferedEnd   = LocalTime.of (endhour, endminute);
+
    }
 
    @Override
@@ -69,7 +73,7 @@ public class retakeBean implements Comparable<retakeBean>
              location + ": " +
              whenOffered.toString() + ": " +
              whenOffered.getDayOfWeek() + ": " +
-             timeOffered.toString();
+             timeOfferedStart.toString() + " - "+ timeOfferedEnd.toString();
    }
 
    // Date methods
@@ -78,8 +82,12 @@ public class retakeBean implements Comparable<retakeBean>
       return whenOffered.getMonth();
    }
    
-   public LocalTime getTime() {
-	   return timeOffered;
+   public LocalTime getTimeStart() {
+	   return timeOfferedStart;
+   }
+   
+   public LocalTime getTimeEnd() {
+	   return timeOfferedEnd;
    }
    
    public int getMonthNum()
@@ -103,7 +111,7 @@ public class retakeBean implements Comparable<retakeBean>
    }
 
    // Time methods
-   public String timeAsString ()
+   public String timeAsString (LocalTime timeOffered)
    {
       return timeOffered.toString();
    }
@@ -124,7 +132,9 @@ public class retakeBean implements Comparable<retakeBean>
 //		tempMap.put("location",r.getLocation().toString());
 //		retakeToPrint.put("id", tempMap);
 	   
-	   String result = "Retake "+ getID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "+getDateOfRetake()+", at "+ timeAsString()+" in "+getLocation();
+	   String result = "Retake "+ getID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+
+			   " "+getDateOfRetake()+", at "+ timeAsString(timeOfferedStart) + " - " + timeAsString(timeOfferedEnd)
+	   +" in "+getLocation();
 	   return result;
    }
 /*
