@@ -131,6 +131,7 @@ public class quizschedule extends HttpServlet {
 			courseFileName = dataLocation + courseBase + "-" + courseID + ".xml";
 			try {
 				course = cr.read(courseFileName);
+				System.out.println(course);
 			} catch (Exception e) {
 				String message = "Can't find the data files for course ID " + courseID + ". You can try again.";
 				if (query == null || query.isEmpty()) {
@@ -153,7 +154,7 @@ public class quizschedule extends HttpServlet {
 					pf.printDataForAdmin(request, response,"");
 			} catch (Exception e) {
 				System.out.println("exception-----------------" + e);
-				String message = "Can't find the data files for course ID " + courseID + ". You can try again.";
+				String message = "We don't support quiz scheduling of course " + courseID + " right now. Please contact kbaral4@gmu.edu if you want to make it available.";
 				if (query == null || query.isEmpty()) {
 					destinationAddress = "/index.jsp";
 				} else

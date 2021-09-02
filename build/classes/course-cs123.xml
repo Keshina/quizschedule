@@ -1,0 +1,15 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<courses>
+  <course> <!-- Maybe in the future all in one XML file? -->
+    <courseID>cs123</courseID> <!-- Used in file names and displayed -->
+    <courseTitle>Dummy class</courseTitle> <!-- String to be displayed -->
+    <retakeDuration>14</retakeDuration> <!-- int, number of days retake is possible -->
+    <startSkipMonth>1</startSkipMonth>
+    <startSkipDay>21</startSkipDay>
+    <endSkipMonth>1</endSkipMonth>
+    <endSkipDay>25</endSkipDay>
+    <!-- <dataLocation>/var/www/CS/webapps/offutt/WEB-INF/data/</dataLocation> -->
+        <dataLocation>src/</dataLocation>
+    
+  </course>
+</courses>

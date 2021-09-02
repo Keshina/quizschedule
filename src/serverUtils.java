@@ -202,7 +202,6 @@ public class serverUtils {
 		
 		
 		protected printQuizScheduleForm readAllData(String courseID, courseBean course) throws IOException {
-
 			printQuizScheduleForm pf = new printQuizScheduleForm();
 			// Filenames to be built from above and the courseID
 			String quizzesFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
@@ -221,10 +220,11 @@ public class serverUtils {
 				quizList = qr.read(quizzesFileName);
 				retakesList = rr.read(retakesFileName);
 				apptsList = aa.read(apptsFileName);
-
 				pf = new printQuizScheduleForm(quizList, retakesList, apptsList, course, daysAvailable);
+
 			} catch (Exception e) {
 				System.err.println("Error reading quiz, retake or appt for admin view in serverUtils.java");
+				e.printStackTrace();
 			}
 			return pf;
 

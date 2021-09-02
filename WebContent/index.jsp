@@ -114,7 +114,7 @@ input[type=text], select {
 		<label for="courseID" class="msg">Course ID:</label> 
 		<input type="text" id="courseID" name="courseID" placeholder="Enter CourseID here"></input>
 		<button id= "submitRequest" type="submit" class="btn">Submit</button>
-		<span id="hint" style=" font-family:monospace; color:#888888"><em>Use courseID: cs123 </em></span>		
+		<span id="hint" style=" font-family:monospace; color:#888888"><em>Use courseID: swe437 </em></span>		
 
 	</form>
 

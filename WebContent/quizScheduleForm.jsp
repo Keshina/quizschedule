@@ -148,7 +148,7 @@ input[type=text], select {
 				<tr>
 				
 					<td>${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
-						${r.getDate().getDayOfMonth()} , at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
+						${r.getDate().getDayOfMonth()}, at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
 						${r.getLocation()}</td>
 				</tr>
 

@@ -61,6 +61,8 @@ public class printQuizScheduleForm {
 		
 	}
 	printQuizScheduleForm(quizzes quizList, retakes retakesList, appts apptsList, courseBean course, int daysAvailable) {
+		System.out.println(course+"PRETINT");
+
 		this.quizList = quizList;
 		this.retakesList = retakesList;
 		this.apptsList = apptsList;
