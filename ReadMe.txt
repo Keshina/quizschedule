@@ -8,3 +8,7 @@
 8. To get access to heroku server side: heroku run bash -a quizscheduler . Might need to install heroku plugin and login for all the heroku command
 git push origin herokuQuiz
 change today's date in printQuizScheduleForm.java file
+
+1. application deployed at localhost:port/contextRoot/some-url-mapping
+Eg.: localhost:8080/quizretakes/quizschedule.
+To change context root, go to project properties -> web application setting and change there.

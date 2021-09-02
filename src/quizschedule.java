@@ -92,7 +92,7 @@ public class quizschedule extends HttpServlet {
 		private String courseID;
 	// To be set by getRequestURL()
 	private String thisServlet = "";
-	private String env="local";
+	private String env="csServer";
 
 // doGet() : for get requests
 	@Override
