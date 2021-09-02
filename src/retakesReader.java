@@ -58,11 +58,15 @@ public retakes read (String filename)
          // day is integer 1..31
          Integer day = Integer.parseInt(elem.getElementsByTagName("day").item(0).getChildNodes().item(0).getNodeValue());
          // hour is integer 0..23
-         Integer hour = Integer.parseInt(elem.getElementsByTagName("hour").item(0).getChildNodes().item(0).getNodeValue());
+         Integer startHour = Integer.parseInt(elem.getElementsByTagName("startHour").item(0).getChildNodes().item(0).getNodeValue());
+         Integer endHour = Integer.parseInt(elem.getElementsByTagName("endHour").item(0).getChildNodes().item(0).getNodeValue());
+
          // minute is integer 0..59
-         Integer minute = Integer.parseInt(elem.getElementsByTagName("minute").item(0).getChildNodes().item(0).getNodeValue());
+         Integer startMinute = Integer.parseInt(elem.getElementsByTagName("startMinute").item(0).getChildNodes().item(0).getNodeValue());
+         Integer endMinute = Integer.parseInt(elem.getElementsByTagName("endMinute").item(0).getChildNodes().item(0).getNodeValue());
+
          // Put one XML record into a bean and add it to the list
-         retake = new retakeBean (ID, location, month, day, hour, minute);
+         retake = new retakeBean (ID, location, month, day, startHour, startMinute, endHour, endMinute);
          retakeList.addRetake (retake);
 
       } // end if

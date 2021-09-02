@@ -255,7 +255,7 @@ public class printQuizScheduleForm {
 
 		for (retakeBean r : retakesList) {
 			LocalDate retakeDay = r.getDate();
-			LocalTime retakeTime = r.getTime();
+			LocalTime retakeTime = r.getTimeStart();
 
 			if (!(retakeDay.isBefore(today)) && !(retakeDay.isAfter(endDay))) {
 				// if skip && retakeDay is after the skip week, print a white bg message
