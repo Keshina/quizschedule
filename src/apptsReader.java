@@ -39,8 +39,11 @@ public appts read (String filename) throws IOException
       BufferedReader bw = new BufferedReader(fw);
 
       String line;
+      System.out.println(bw.readLine()+"---A");
       while ((line = bw.readLine()) != null)
       {
+          System.out.println("lineeee"+line+filename);
+
          String[] s = line.split(separator);
          int r =  Integer.parseInt(s[0].replaceAll("\\s",""));
          int q= Integer.parseInt(s[1].replaceAll("\\s",""));
