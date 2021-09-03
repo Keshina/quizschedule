@@ -5,13 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <style>
+
+#footer {
+ position: fixed;
+ bottom: 0px;
+  background-color: #edc8b6;
+  width: 100%;
+  height: 46px;
+  text-align: center;
+
+}
+
 table {
   font-family:  Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 50%;
 margin-left:auto;
 margin-right:auto;
-background: #ffffff;
+background: #EBD5CA; /*ffffff*/
 }
 
 h2{
@@ -24,12 +35,17 @@ h2{
   width: 80%;
   padding: 10px;
   text-align:center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:18px;
+  color:#123d6a;
+  margin-bottom:46px
+  
+  
 
 }
 
 .msg{
   font-family: Arial, Helvetica, sans-serif;
-
 }
 
 .errorMsg{
@@ -43,26 +59,28 @@ h2{
   width: 60%;
   padding: 10px;
   text-align:center;
+  font-family: Arial, Helvetica, sans-serif;
 
 }
 
 .btn{
   font-family:  Arial, Helvetica, sans-serif;
-    background-color: #4CAF50; /* Green */
+    background-color: #28a745; /* Green */
   border: none;
   color: white;
   padding: 11px 32px;
   text-align: center;
   text-decoration: none;
   display: block;
-  font-size: 14px;
+  font-size: 18px;
   margin: auto;
   cursor: pointer;
 }
 td {
-  border: 1px solid #dddddd;
+ /* border: 1px solid #dddddd;*/
   text-align: left;
   padding: 8px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 /* table tr:hover {background-color: #ddd;}
  */
@@ -71,7 +89,8 @@ th {
   border: 1px solid #dddddd;
   text-align: middle;
   padding: 8px;
-  background-color:#b9cd6d
+  background-color:#b9cd6d;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .divColor{
@@ -104,9 +123,27 @@ input[type=text], select {
   box-sizing: border-box;
    margin: auto;
   width: 60%;
+  font-family: Arial, Helvetica, sans-serif;
   
 }
 
+.retakeRow{
+background: #edc8b8;
+border: none;
+border-collapse: collapse;
+ 
+}
+
+.quizRow{
+background: #ede2dc;
+border-collapse: collapse;
+
+}
+
+.labels{
+	font-size: 18px;
+	color:#ab3b61
+}
 </style>
 <title>Quiz retake scheduler</title>
 <script type='text/javascript'>
@@ -114,9 +151,10 @@ input[type=text], select {
 </script>
 
 </head>
-<body bgcolor="#DDEEDD">
+<!-- <body bgcolor="#DDEEDD"> -->
+<body bgcolor="#EBD5CA"> <!-- overall background -->
 	<center>
-		<h2>Quiz Retake Scheduler</h2>
+		<h2 style="color:#123d6a">Quiz Retake Scheduler</h2>
 	</center>
 	<hr />
 	<div id="welcomeMsg">
@@ -137,27 +175,29 @@ input[type=text], select {
 			<form name="setRetake" method="post" action="quizschedule">
 			<input name="query" id="query" style="display: none" value="addAppointment"></input><br>
 <div id="name" class="name">
-				<label for="studentName">Name: </label>
-					<input type="text" id="studentName" name="studentName"></input> <br> <br>
+				<label for="studentName" class="labels">Name: </label>
+					<input type="text" id="studentName" name="studentName" autofocus></input> <br> <br>
 									</div>
 						
-		<table border=1 style='background-color: #99dd99'>
+		<table><!--  style='background-color: #99dd99'> -->
 
 			<c:forEach items="${selectedRetakes}" var="r">
 
-				<tr>
+				<tr class="retakeRow">
 				
-					<td>${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
+					<td class ="retakeRow"  colspan="2">
+					${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
 						${r.getDate().getDayOfMonth()}, at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
-						${r.getLocation()}</td>
+						${r.getLocation()}
+						</td>
 				</tr>
 
 				<c:forEach items="${selectedQuizes.get(r.getID())}" var="q">
-					<tr>
+					<tr class="quizRow">
 						<td align='right'>Quiz ${q.getID()} from ${q.onlyCapitalizeFirstLetter(q.getDayOfWeek())},
 							${q.onlyCapitalizeFirstLetter(q.getDate().getMonth())} ${q.getDate().getDayOfMonth()}</td>
 
-						<td><input type='checkbox' name='retakeReqs'
+						<td class= "quizRow"><input type='checkbox' name='retakeReqs'
 							value='${r.getID()}, ${q.getID()}'
 							id='q${q.getID()}r${r.getID()}'></input></td>
 					</tr>
@@ -176,7 +216,8 @@ input[type=text], select {
 		
 		<table border=1>
 			<tr>
-				<td align='middle'>All quiz retake opportunities</td>
+				<td align='middle'  style="color:#ab3b61;font-size: large;text-align: center;  text-transform: uppercase;">
+				All quiz retake opportunities</td>
 			</tr>
 			<c:forEach items="${allRetakes}" var="allRetake">
 				<tr>
@@ -188,9 +229,11 @@ input[type=text], select {
 
 	</div>
 
-	<p style="font-size: 80%; font-family: monospace; color: #888888">
-		 Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt <br />Jan 2021
-	</p>
+	<div id="footer">
+	<p style="font-size:12px; font-family:monospace; color:#ab3b61">
+Copyright&#169; Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
+<br/>Sep 2021
+</p></div>
 
 </body>
 </html>

@@ -4,6 +4,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <style>
+
+#footer {
+ position: fixed;
+ bottom: 0px;
+  background-color: #edc8b6;
+  width: 100%;
+  height: 46px;
+  text-align: center;
+
+}
+
 table {
   font-family:  Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -20,14 +31,26 @@ h2{
 
 #welcomeMsg{
  margin: auto;
-  width: 60%;
+  width: 80%;
   padding: 10px;
+  text-align:center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:18px;
+  color:#123d6a;
+  margin-bottom:46px
+  
+  
 
 }
 
 .msg{
   font-family:  Arial, Helvetica, sans-serif;
 
+}
+
+.labels{
+	font-size: 18px;
+	color:#ab3b61
 }
 
 .errorMsg{
@@ -39,7 +62,7 @@ h2{
 
 .btn{
   font-family:  Arial, Helvetica, sans-serif;
-  background-color: #4CAF50; /* Green */
+  background-color: #28a745; /* Green */
   border: none;
   color: white;
   padding: 11px 32px;
@@ -54,6 +77,8 @@ td {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  font-family:  Arial, Helvetica, sans-serif;
+  
 }
 table tr:hover {background-color: #ddd;}
 
@@ -62,7 +87,9 @@ th {
   border: 1px solid #dddddd;
   text-align: middle;
   padding: 8px;
-  background-color:#b9cd6d
+  background-color:#b9cd6d;
+  font-family:  Arial, Helvetica, sans-serif;
+  
 }
 
 .divColor{
@@ -101,8 +128,8 @@ input[type=text], select {
 </script>
 
 </head>
-<body bgcolor="#DDEEDD">
-<center><h2>Quiz Retake Scheduler</h2></center>
+<body bgcolor="#EBD5CA">
+<center><h2 style="color:#123d6a">Quiz Retake Scheduler</h2></center>
 <hr />
 
 <div id="welcomeMsg">
@@ -111,20 +138,20 @@ input[type=text], select {
 		<span class="msg">Please enter the course ID given to you by your instructor. 
 			It is probably the same as the university course Id, with no spaces. </span>
 			<br></br>
-		<label for="courseID" class="msg">Course ID:</label> 
-		<input type="text" id="courseID" name="courseID" placeholder="Enter CourseID here"></input>
+		<div style="text-align:center">
+		<label for="courseID" class="labels">Course ID:</label> 
+		<input type="text" id="courseID" name="courseID" placeholder="Enter CourseID here" autofocus></input>
 		<button id= "submitRequest" type="submit" class="btn">Submit</button>
-		<span id="hint" style=" font-family:monospace; color:#888888"><em>Use courseID: swe437 </em></span>		
-
+		<span id="hint" style=" font-family:monospace; color:#888888"></span>		
+</div>
 	</form>
 
 </div>
-
-
-<p style="font-size:80%; font-family:monospace; color:#888888">
- Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
-<br/>Jan 2021
-</p>
+<div id="footer">
+	<p style="font-size:12px; font-family:monospace; color:#ab3b61">
+Copyright&#169; Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
+<br/>Sep 2021
+</p></div>
 
 </body>
 </html>
