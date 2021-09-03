@@ -16,6 +16,13 @@
 
 }
 
+
+body{
+min-height:400px;
+margin-bottom:46px;
+clear:both
+}
+
 table {
   font-family:  Arial, Helvetica, sans-serif;
   border-collapse: collapse;

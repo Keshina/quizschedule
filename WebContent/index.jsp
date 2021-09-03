@@ -37,7 +37,7 @@ h2{
   font-family: Arial, Helvetica, sans-serif;
   font-size:18px;
   color:#123d6a;
-  margin-bottom:46px
+  margin-bottom:55px
   
   
 
@@ -120,6 +120,12 @@ input[type=text], select {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+body{
+min-height:400px;
+margin-bottom:46px;
+clear:both
 }
 
 </style>

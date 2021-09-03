@@ -219,6 +219,7 @@ public class serverUtils {
 			try { // Read the files and print the form
 				quizList = qr.read(quizzesFileName);
 				retakesList = rr.read(retakesFileName);
+//				try {
 				apptsList = aa.read(apptsFileName);
 				pf = new printQuizScheduleForm(quizList, retakesList, apptsList, course, daysAvailable);
 

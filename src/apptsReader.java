@@ -29,7 +29,9 @@ public appts read (String filename) throws IOException
    File file = new File(filename);
    if (!file.exists())
    {
-      throw new IOException ("No appointments to read.");
+//      throw new IOException ("No appointments to read.");
+	   System.err.println("No appointments to read");
+	   return apptList;
    }
    else
    {

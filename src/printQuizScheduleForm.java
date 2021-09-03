@@ -60,6 +60,21 @@ public class printQuizScheduleForm {
 	printQuizScheduleForm(){
 		
 	}
+	printQuizScheduleForm(quizzes quizList, retakes retakesList, courseBean course, int daysAvailable) {
+		System.out.println(course+"PRETINT");
+
+		this.quizList = quizList;
+		this.retakesList = retakesList;
+		this.course = course;
+		//today = LocalDate.of(2021, 01, 10)
+		today = LocalDate.now();
+		startSkip = course.getStartSkip();
+		endSkip = course.getEndSkip();
+		endDay = today.plusDays(Long.valueOf(daysAvailable));
+		origEndDay = endDay;
+		this.daysAvailable = daysAvailable;
+	}
+	
 	printQuizScheduleForm(quizzes quizList, retakes retakesList, appts apptsList, courseBean course, int daysAvailable) {
 		System.out.println(course+"PRETINT");
 
