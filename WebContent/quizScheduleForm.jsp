@@ -1,4 +1,4 @@
-<?xml version="1.0\" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -40,7 +40,6 @@ h2{
  margin: auto;
   width: 80%;
   padding: 10px;
-  text-align:center;
   font-family: Arial, Helvetica, sans-serif;
   font-size:18px;
   color:#123d6a;
@@ -52,6 +51,8 @@ h2{
 
 .msg{
   font-family: Arial, Helvetica, sans-serif;
+    text-align:left;
+  margin-left:-76px;
 }
 
 .errorMsg{

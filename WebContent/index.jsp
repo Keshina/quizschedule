@@ -1,4 +1,4 @@
-<?xml version="1.0\" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -33,11 +33,11 @@ h2{
  margin: auto;
   width: 80%;
   padding: 10px;
-  text-align:center;
   font-family: Arial, Helvetica, sans-serif;
   font-size:18px;
   color:#123d6a;
   margin-bottom:55px
+  
   
   
 
@@ -45,6 +45,8 @@ h2{
 
 .msg{
   font-family:  Arial, Helvetica, sans-serif;
+  text-align:left;
+  margin-left:-76px;
 
 }
 
@@ -141,8 +143,7 @@ clear:both
 <div id="welcomeMsg">
 <span class="errorMsg" id="message">${message}</span>
 	<form name="getCourseId" method="get" action="quizschedule">
-		<span class="msg">Please enter the course ID given to you by your instructor. 
-			It is probably the same as the university course Id, with no spaces. </span>
+		<span class="msg">Please enter the course ID given to you by your instructor.</span>
 			<br></br>
 		<div style="text-align:center">
 		<label for="courseID" class="labels">Course ID:</label> 
