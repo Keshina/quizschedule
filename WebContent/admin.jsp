@@ -125,29 +125,53 @@
 </script>
 
 <style>
+.logout{
+float:right;
+margin-right:10px;
+margin-top:-28px;
+}
+
+#footer {
+ position: fixed;
+ bottom: 0px;
+  background-color: #edc8b6;
+  width: 100%;
+  height: 46px;
+  text-align: center;
+
+}
+
 table {
   font-family:  Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 70%;
 margin-left:auto;
 margin-right:auto;
-background: #ffffff;
+background: #EBD5CA;
 }
 
 h2{
   font-family:  Arial, Helvetica, sans-serif;
+  display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 
 }
 #courseAuthDiv{
  margin: auto;
   width: 60%;
   padding: 10px;
+  text-align:center
 
 }
 
 .btn{
   font-family:  Arial, Helvetica, sans-serif;
-    background-color: #4CAF50; /* Green */
+    background-color: #28a745; /* Green */
   border: none;
   color: white;
   padding: 11px 32px;
@@ -159,33 +183,34 @@ h2{
   cursor: pointer;
 }
 td {
-  border: 1px solid #dddddd;
+  border: 1px solid #dba690;
   text-align: left;
   padding: 8px;
 }
-table tr:hover {background-color: #ddd;}
+table tr:hover {background-color: #ede2dc;}
 
 
 th {
   border: 1px solid #dddddd;
   text-align: middle;
   padding: 8px;
-  background-color:#b9cd6d
+  background-color:#EBD5CA;
+  color:#ab3b61
 }
 
 .divColor{
 background: #b9cd6d;
 }
 tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #eec7b7;
 }
 #tabs-1 {
 	font-size: 14px;
 }
 
 .ui-widget-header {
-	background: #b9cd6d;
-	border: 1px solid #b9cd6d;
+	background: #123c69;
+	border: 1px solid #123c69;
 	color: #FFFFFF;
 	font-weight: bold;
 }
@@ -202,33 +227,56 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+.labels{
+	font-size: 18px;
+	color:#ab3b61
+}
+#admin{
+  margin-bottom:46px
+}
 </style>
+<%
+String userName = null;
+Cookie[] cookies = request.getCookies();
+if(cookies !=null){
+for(Cookie cookie : cookies){
+	if(cookie.getName().equals("user")) userName = cookie.getValue();
+}
+}
+if(userName == null) response.sendRedirect("instructor.jsp");
+%>
 <title>Quiz Retake Scheduler</title>
 </head>
-<body bgcolor="#DDEEDD">
+<body bgcolor="#EBD5CA">
 
 	<center>
-		<h2>Quiz Retake Scheduler</h2>
+		<h2 style="color:#123d6a">Quiz Retake Scheduler Instructor Page</h2>
 	</center>
 	<hr />
+	
+<form id="courseAuth" method="post" action="quizretakes.quizschedule">
+<input name="query" id="query" style="display: none" value="logout">
+</input><br><input type="submit" class="logout" value="Logout" >
+</form>
+
 	<div id="courseAuthDiv">
 		<span id="message">${message}</span>
-		<form id="courseAuth" method="get" action="quizschedule">
+		<form id="courseAuth" method="get" action="quizretakes.quizschedule">
 		<input name="query" id="query" style="display: none" value="admin"></input><br>
-		<label for="courseID">Select course id:</label>
-		<input name="courseID" id="courseID" type="text" placeholder="Enter Course ID"></input>
+		<label for="courseID" class="labels">Select course id:</label>
+		<input name="courseID" id="courseID" type="text" placeholder="Enter Course ID" autofocus></input>
 		<input class="btn" type="submit" value="Submit">
-		<span id="hint" style=" font-family:monospace; color:#888888"><em>Use courseID: cs123 </em></span>		
+		<span id="hint" style=" font-family:monospace; color:#888888"></span>		
 		</form>
 		<br> <br>
 	</div>
 	<div id="admin" class="tab">
 		<ul>
-			<li><a href="#quiz">Quiz</a></li>
-			<li><a href="#retake">Retake</a></li>
+			
 			<!-- <li><a href="#course">Course</a></li> -->
 			<li><a href="#appointments">Appointments</a></li>
+			<li><a href="#quiz">Quiz</a></li>
+			<li><a href="#retake">Retake</a></li>
 
 		</ul>
 		<div id="quiz">
@@ -367,9 +415,10 @@ input[type=text], select {
 			</c:forEach>
 		</table></div>
 	</div>
-	<p style="font-size:80%; font-family:monospace; color:#888888">
-Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
-<br/>Jan 2021
-</p>
+	<div id="footer">
+	<p style="font-size:12px; font-family:monospace; color:#ab3b61">
+Copyright&#169; Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
+<br/>Sep 2021
+</p></div>
 </body>
 </html>

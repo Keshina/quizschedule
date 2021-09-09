@@ -6,6 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <style>
+#footer {
+ position: fixed;
+ bottom: 0px;
+  background-color: #edc8b6;
+  width: 100%;
+  height: 46px;
+  text-align: center;
+
+}
+
 table {
   font-family:  Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -22,13 +32,18 @@ h2{
 
 #welcomeMsg{
  margin: auto;
-  width: 60%;
+  width: 80%;
   padding: 10px;
-    font-size: 18px;
-  
   text-align:center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:18px;
+  color:#123d6a;
+    margin-bottom:46px
+  
+  
 
 }
+
 
 .msg{
   font-family:  Arial, Helvetica, sans-serif;
@@ -44,7 +59,7 @@ h2{
 
 .btn{
   font-family:  Arial, Helvetica, sans-serif;
-  background-color: #4CAF50; /* Green */
+  background-color: #28a745; /* Green */
   border: none;
   color: white;
   padding: 11px 32px;
@@ -93,8 +108,8 @@ function myFunction() {
 </script>
 
 </head>
-<body bgcolor="#DDEEDD">
-<center><h2>Quiz Retake Scheduler</h2></center>
+<body bgcolor="#EBD5CA">
+<center><h2 style="color:#123d6a">Quiz Retake Scheduler</h2></center>
 <hr />
 
 <div id="welcomeMsg">
@@ -109,12 +124,11 @@ Please try again.
  <button id= "back" onClick="myFunction()" class="btn">Back</button>
 
 </div>
-
-
-<p style="font-size:80%; font-family:monospace; color:#888888">
- Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
-<br/>May 2021
-</p>
+<div id="footer">
+	<p style="font-size:12px; font-family:monospace; color:#ab3b61">
+Copyright&#169; Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
+<br/>Sep 2021
+</p></div>
 
 </body>
 </html>
