@@ -50,17 +50,10 @@ public class AppointmentUtils {
 			String studentName = request.getParameter("studentName");
 			String[] allIDs =	request.getParameterValues("retakeReqs");
 			printQuizScheduleForm pf = new printQuizScheduleForm();
-			System.out.println(studentName+"---"+allIDs);
-//			response.setContentType("text/html");
-//			PrintWriter out = response.getWriter();
-			// servletUtils.printHeader (out);
-//			out.println("<body bgcolor=\"#DDEEDD\">");
-
 			if (allIDs != null && studentName != null && studentName.length() > 0) { 
 			//	Append the new appointment to the file
 				try {
 				File file = new File(apptsFileName); 
-//				System.out.println(apptsFileName);
 				synchronized (file) { // Only one student should touch this file at a time.
 					if (!file.exists()) {
 						file.createNewFile(); 
@@ -77,8 +70,6 @@ public class AppointmentUtils {
 				} catch (IOException e) {
 					System.out.println(e);
 						IOerrFlag = true;
-//						IOerrMessage = "failure";
-//						pf.printApptScheduleResponse(request, response, IOerrMessage,"");
 }
 
 				// Respond to the student
@@ -102,12 +93,6 @@ public class AppointmentUtils {
 				pf.printApptScheduleResponse(request, response, "noQuiz",studentName);
 			else if (studentName == null || studentName.length() == 0)
 				pf.printApptScheduleResponse(request, response, "noName",studentName);
-//				thisServlet = (request.getRequestURL()).toString(); 
-				// CS server has a flaw--requires https & 8443, but puts http & 8080 on the // requestURL //
-				//thisServlet = thisServlet.replace("http", "https"); // thisServlet =
-				//thisServlet.replace("8080", "8443"); 
-//				out.println("<p><a href='" + thisServlet+ "?courseID=" + courseID + "&req=addAppointment'>You can try again if you like.</a>"); } 
-		//servletUtils.printFooter(out);
 		}
 	}		
 }
