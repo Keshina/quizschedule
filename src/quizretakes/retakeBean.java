@@ -29,11 +29,12 @@ import java.util.HashMap;
 
 public class retakeBean implements Comparable<retakeBean>
 {
-   private int retakeID;
+   public int retakeID;
    private String location;
    private LocalDate whenOffered;
    private LocalTime timeOfferedStart;
    private LocalTime timeOfferedEnd;
+   public String retakeInfoStudent;
 
    private int date;
 
@@ -46,6 +47,7 @@ public class retakeBean implements Comparable<retakeBean>
       whenOffered   = LocalDate.of (year, month, day);
       timeOfferedStart   = LocalTime.of (starthour, startminute);
       timeOfferedEnd   = LocalTime.of (endhour, endminute);
+      retakeInfoStudent = retakePrintForStudent();
 
    }
 
@@ -64,7 +66,7 @@ public class retakeBean implements Comparable<retakeBean>
    {
       return location;
    }
-   public int getID()
+   public int getretakeID()
    {
       return retakeID;
    }
@@ -77,6 +79,7 @@ public class retakeBean implements Comparable<retakeBean>
              timeOfferedStart.toString() + " - "+ timeOfferedEnd.toString();
    }
 
+   
    // Date methods
    public Month getMonth()
    {
@@ -124,7 +127,7 @@ public class retakeBean implements Comparable<retakeBean>
 	   output= output.substring(0, 1).toUpperCase()+output.substring(1);
 	   return output;
    }
-   public String retakeToPrint() {
+   public String retakeToPrint() { //for admin view
 //	   HashMap<String, String> tempMap = new HashMap();
 //		tempMap.put("dayOfWeek",r.getDayOfWeek().toString());
 //		tempMap.put("month", r.getMonth().toString());
@@ -133,15 +136,30 @@ public class retakeBean implements Comparable<retakeBean>
 //		tempMap.put("location",r.getLocation().toString());
 //		retakeToPrint.put("id", tempMap);
 	   
-	   String result = "Retake "+ getID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+
+	   String result = "Retake "+ getretakeID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+
 			   " "+getDateOfRetake()+", at "+ timeAsString(timeOfferedStart) + " - " + timeAsString(timeOfferedEnd)
 	   +" in "+getLocation();
+	   
+	   
+//		
+	   
+	 
 	   return result;
    }
-/*
-   public String getQuizId() {
-      return quizId;
+   
+   public String retakePrintForStudent() {
+	   String result = onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "+getDateOfRetake()+", at "
+			   +timeAsString(timeOfferedStart) + " - " + timeAsString(timeOfferedEnd)+" in "+getLocation();
+//	   ${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
+//		${r.getDate().getDayOfMonth()}, at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
+//		${r.getLocation()}
+	   
+	   return result;
    }
-*/
+
+   public String getretakeInfoStudent() {
+      return retakeInfoStudent;
+   }
+
 
 }

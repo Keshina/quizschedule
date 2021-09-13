@@ -19,6 +19,18 @@
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
+
+function changeAction() {
+   
+    if( window.location.pathname.includes('servlet') ) {
+    	document.getElementById("courseAuth").action= 'quizretakes.quizschedule';
+    }
+	   else
+		   {
+		   document.getElementById("courseAuth").action= 'servlet/quizretakes.quizschedule';
+		   }
+}
+	
 	$(function() {
 		$("#repeatCheckBoxQ").prop("checked", false);
 		$("#repeatCheckBoxR").prop("checked", false);
@@ -234,8 +246,13 @@ input[type=text], select {
 #admin{
   margin-bottom:46px
 }
+body{
+min-height:400px;
+margin-bottom:46px;
+clear:both
+}
 </style>
-<%
+ <%
 String userName = null;
 Cookie[] cookies = request.getCookies();
 if(cookies !=null){
@@ -243,25 +260,25 @@ for(Cookie cookie : cookies){
 	if(cookie.getName().equals("user")) userName = cookie.getValue();
 }
 }
-if(userName == null) response.sendRedirect("instructor.jsp");
-%>
+if(userName == null) response.sendRedirect("/instructor.jsp");
+%> 
 <title>Quiz Retake Scheduler</title>
 </head>
-<body bgcolor="#EBD5CA">
+<body bgcolor="#EBD5CA" onload="changeAction()">
 
 	<center>
 		<h2 style="color:#123d6a">Quiz Retake Scheduler Instructor Page</h2>
 	</center>
 	<hr />
 	
-<form id="courseAuth" method="post" action="quizretakes.quizschedule">
+<form id="logoutForm" method="post" action="quizretakes.quizschedule">
 <input name="query" id="query" style="display: none" value="logout">
 </input><br><input type="submit" class="logout" value="Logout" >
 </form>
 
 	<div id="courseAuthDiv">
 		<span id="message">${message}</span>
-		<form id="courseAuth" method="get" action="quizretakes.quizschedule">
+		<form id="courseAuth" method="get" action="/">
 		<input name="query" id="query" style="display: none" value="admin"></input><br>
 		<label for="courseID" class="labels">Select course id:</label>
 		<input name="courseID" id="courseID" type="text" placeholder="Enter Course ID" autofocus></input>

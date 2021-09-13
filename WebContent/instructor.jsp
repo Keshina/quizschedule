@@ -1,10 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<meta charset="ISO-8859-1">
+<script type="text/javascript">
+function changeAction() {
+   
+    if( window.location.pathname.includes('servlet') ) {
+    	document.getElementById("authenticate").action= 'quizretakes.quizschedule';
+    }
+	   else
+		   {
+		   document.getElementById("authenticate").action= 'servlet/quizretakes.quizschedule';
+		   }
+}
+	
+</script>
 <style>
 #footer {
  position: fixed;
@@ -14,11 +26,6 @@
   height: 46px;
   text-align: center;
 
-}
-body{
-min-height:400px;
-margin-bottom:46px;
-clear:both
 }
 
 table {
@@ -93,7 +100,7 @@ background: #b9cd6d;
 .ui-widget-content{
 background:none}
 
-input[type=text], select {
+input, select {
   width: 40%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -105,35 +112,30 @@ input[type=text], select {
 
 </style>
 <title>Quiz Retake Scheduler</title>
-<script type='text/javascript'>
-function myFunction() {
-	history.go(-2);
- }
-</script>
-</script>
-
 </head>
-<body bgcolor="#EBD5CA">
-<center><h2 style="color:#123d6a">Quiz Retake Scheduler</h2></center>
+<body bgcolor="#EBD5CA" onload="changeAction()">
+<center><h2 style="color:#123d6a">Quiz Retake Scheduler Instructor Login</h2></center>
 <hr />
-
+<br><br>
 <div id="welcomeMsg">
-<span id="message">${message}</span>
-<c:if test="${result == 'success'}">
-<br></br>Please arrive in time to finish the quiz before the end of the retake period.<br></br>If you cannot make it, please cancel by sending email to your professor.
-</c:if>
-<c:if test="${result == 'failed'}">
-Please try again.
-</c:if>
-			<br></br>
- <button id= "back" onClick="myFunction()" class="btn">Back</button>
 
+<span id="message">${message}</span>
+
+
+<form name="authenticate" id="authenticate" method="post" action="/">
+			<input name="query" id="query" style="display: none" value="authenticate"></input><br>
+    <input type="text" name="username" id="username" size="25" autofocus placeholder="Username" required>
+    <p><p>
+    <input type="password" size="15" name="password" id="password" placeholder="Password" required>
+    <p><p>
+    <input type="submit" class="btn" value="Submit"><p>
+    <input type="reset" class="btn" value="Reset">
+</form>
 </div>
 <div id="footer">
 	<p style="font-size:12px; font-family:monospace; color:#ab3b61">
 Copyright&#169; Kesina Baral &amp; Rasika Mohod &amp; Jeff Offutt
 <br/>Sep 2021
 </p></div>
-
 </body>
 </html>

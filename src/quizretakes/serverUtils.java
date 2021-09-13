@@ -45,14 +45,8 @@ public class serverUtils {
 			else if (env.equals("heroku"))
 				path=home+File.separator+"data"+File.separator;
 			else if(env.equals("csServer"))
-				path ="var/www/CS/webapps/kbaral4/WEB-INF/data/";
-//			String path="";
-			/*
-			 * try { path = new File("quizschedule/src/").getCanonicalPath().toString(); }
-			 * catch (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); path=""; }
-			 */
-		//	path = Paths.get("").toAbsolutePath().toString();
+				path ="/var/www/CS/webapps/kbaral4/WEB-INF/data/";
+
 			System.out.println(path);
 			return path;
 		}

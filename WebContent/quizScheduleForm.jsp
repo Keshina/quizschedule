@@ -1,4 +1,4 @@
-<?xml version="1.0\" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -30,11 +30,15 @@ h2{
 
 }
 
+body{
+min-height:400px;
+margin-bottom:46px;
+clear:both
+}
 #welcomeMsg{
  margin: auto;
   width: 80%;
   padding: 10px;
-  text-align:center;
   font-family: Arial, Helvetica, sans-serif;
   font-size:18px;
   color:#123d6a;
@@ -46,6 +50,10 @@ h2{
 
 .msg{
   font-family: Arial, Helvetica, sans-serif;
+    text-align:left;
+      margin-left:-76px;
+    
+  
 }
 
 .errorMsg{
@@ -160,11 +168,11 @@ border-collapse: collapse;
 	<div id="welcomeMsg">
 		<span id="message">${message}</span>
 		<div class="msg">You can sign up for quiz retakes within the next two weeks.<br />
-			Today is <em>${today.getDayOfWeek()}, ${today.getMonth()}
-			${today.getDayOfMonth()}</em>.
+			Today is <em>${todayDayOfWeek}, ${todayMonth}
+			${todayDayOfMonth}</em>.
 			Currently scheduling quizzes for the next two weeks, until
-				<em>${endDay.getDayOfWeek()}, ${endDay.getMonth()}
-				${endDay.getDayOfMonth()}</em>.</div><br>
+				<em>${endDayOfWeek}, ${endMonth}
+				${endDayOfMonth}</em>.</div><br>
 			<div class="msg">
 			Enter your name (as it appears on the class roster), then select
 			which date, time, and quiz you wish to retake from the following
@@ -186,20 +194,17 @@ border-collapse: collapse;
 				<tr class="retakeRow">
 				
 					<td class ="retakeRow"  colspan="2">
-					${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
-						${r.getDate().getDayOfMonth()}, at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
-						${r.getLocation()}
+					${r.retakeInfoStudent}
 						</td>
 				</tr>
 
-				<c:forEach items="${selectedQuizes.get(r.getID())}" var="q">
+				<c:forEach items="${selectedQuizes[r.retakeID]}" var="q">
 					<tr class="quizRow">
-						<td align='right'>Quiz ${q.getID()} from ${q.onlyCapitalizeFirstLetter(q.getDayOfWeek())},
-							${q.onlyCapitalizeFirstLetter(q.getDate().getMonth())} ${q.getDate().getDayOfMonth()}</td>
+						<td align='right'>${q.quizInfoStudent}</td>
 
 						<td class= "quizRow"><input type='checkbox' name='retakeReqs'
-							value='${r.getID()}, ${q.getID()}'
-							id='q${q.getID()}r${r.getID()}'></input></td>
+							value='${r.retakeID}, ${q.ID}'
+							id='q${q.ID}r${r.retakeID}'></input></td>
 					</tr>
 				</c:forEach>
 

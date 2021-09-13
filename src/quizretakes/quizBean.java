@@ -30,12 +30,13 @@ import java.time.format.DateTimeFormatter;
 
 public class quizBean implements Comparable<quizBean>
 {
-   private int ID;
+   public int ID;
    private LocalDate dateGiven;
    private LocalTime timeGiven;
    private Integer date;
    private String monthSet,dayOfWeek, time;
    private Integer yearSet,hourSet,minuteSet;
+   public String quizInfoStudent;
 
    // *** Constructor *** //
    public quizBean (int quizID, int month, int day, int hour, int minute)
@@ -51,6 +52,8 @@ public class quizBean implements Comparable<quizBean>
       dayOfWeek = dateGiven.getDayOfWeek().toString();
       time = timeAsString().toString();
       date = dateGiven.getDayOfMonth();
+      quizInfoStudent = quizPrintForStudent();
+
     		  
    }
 
@@ -145,10 +148,18 @@ public class quizBean implements Comparable<quizBean>
 	   return result;
    }
 
-/*
-   public String getQuizId() {
-      return quizId;
+   public String quizPrintForStudent() {
+	   String result = "Quiz "+getID()+" from "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "
+   +getDateOfQuiz();
+//	   Quiz ${q.getID()} from ${q.onlyCapitalizeFirstLetter(q.getDayOfWeek())},
+//		${q.onlyCapitalizeFirstLetter(q.getDate().getMonth())} ${q.getDate().getDayOfMonth()}
+	   
+//	   quizInfoStudent= result;
+	   return result;
    }
-*/
+   
+   public String getquizInfoStudent() {
+	      return quizInfoStudent;
+	   }
 
 }

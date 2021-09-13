@@ -51,10 +51,10 @@ public class AppointmentUtils {
 			String[] allIDs =	request.getParameterValues("retakeReqs");
 			printQuizScheduleForm pf = new printQuizScheduleForm();
 			System.out.println(studentName+"---"+allIDs);
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
+//			response.setContentType("text/html");
+//			PrintWriter out = response.getWriter();
 			// servletUtils.printHeader (out);
-			out.println("<body bgcolor=\"#DDEEDD\">");
+//			out.println("<body bgcolor=\"#DDEEDD\">");
 
 			if (allIDs != null && studentName != null && studentName.length() > 0) { 
 			//	Append the new appointment to the file
@@ -75,9 +75,10 @@ public class AppointmentUtils {
 							bw.close(); 
 							} // end synchronize block
 				} catch (IOException e) {
+					System.out.println(e);
 						IOerrFlag = true;
-						IOerrMessage = "failure";
-						pf.printApptScheduleResponse(request, response, IOerrMessage,"");
+//						IOerrMessage = "failure";
+//						pf.printApptScheduleResponse(request, response, IOerrMessage,"");
 }
 
 				// Respond to the student
@@ -99,7 +100,7 @@ public class AppointmentUtils {
 		}else{ 
 			if (allIDs == null)
 				pf.printApptScheduleResponse(request, response, "noQuiz",studentName);
-			if (studentName == null || studentName.length() == 0)
+			else if (studentName == null || studentName.length() == 0)
 				pf.printApptScheduleResponse(request, response, "noName",studentName);
 //				thisServlet = (request.getRequestURL()).toString(); 
 				// CS server has a flaw--requires https & 8443, but puts http & 8080 on the // requestURL //

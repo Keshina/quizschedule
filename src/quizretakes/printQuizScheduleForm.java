@@ -167,7 +167,7 @@ public class printQuizScheduleForm {
 		for (retakeBean r : retakesList) {
 			allRetakes.add(r);
 			retakeListToPrint.add(r.retakeToPrint());
-			Integer id = r.getID();
+			Integer id = r.getretakeID();
 			retakeToPrint.put(id,r.retakeToPrint());
 			
 			
@@ -254,11 +254,19 @@ public class printQuizScheduleForm {
 			extendEndDay();
 
 		req.setAttribute("today", today);
+		req.setAttribute("todayDayOfWeek", today.getDayOfWeek());
+		req.setAttribute("todayMonth", today.getMonth());
+		req.setAttribute("todayDayOfMonth", today.getDayOfMonth());
+
 		req.setAttribute("endDay", endDay);
+		req.setAttribute("endDayOfWeek", endDay.getDayOfWeek());
+		req.setAttribute("endMonth", endDay.getMonth());
+		req.setAttribute("endDayOfMonth", endDay.getDayOfMonth());
 
 		System.out.println("TODAY AND END DAY SET");
 
 		List<retakeBean> selectedRetakes = new ArrayList<>();
+//		List<String> selectedRetakes = new ArrayList<>();
 		Map<Integer, List> selectedQuizes = new HashMap<>();
 		List<retakeBean> allRetakes = new ArrayList<>();
 
@@ -285,6 +293,7 @@ public class printQuizScheduleForm {
 
 					retakePrinted = true;
 					selectedRetakes.add(r);
+//					selectedRetakes.add(r.retakePrintForStudent());
 
 					List<quizBean> selectedQuizList = new ArrayList<quizBean>();
 
@@ -310,7 +319,7 @@ public class printQuizScheduleForm {
 							}
 						}
 					}
-					selectedQuizes.put(r.getID(), selectedQuizList);
+					selectedQuizes.put(r.getretakeID(), selectedQuizList);
 				}
 			}
 
