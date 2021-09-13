@@ -128,21 +128,10 @@ public class retakeBean implements Comparable<retakeBean>
 	   return output;
    }
    public String retakeToPrint() { //for admin view
-//	   HashMap<String, String> tempMap = new HashMap();
-//		tempMap.put("dayOfWeek",r.getDayOfWeek().toString());
-//		tempMap.put("month", r.getMonth().toString());
-//		tempMap.put("date", r.getDateOfRetake().toString());
-//		tempMap.put("time", r.timeAsString().toString());
-//		tempMap.put("location",r.getLocation().toString());
-//		retakeToPrint.put("id", tempMap);
 	   
 	   String result = "Retake "+ getretakeID()+" : "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+
 			   " "+getDateOfRetake()+", at "+ timeAsString(timeOfferedStart) + " - " + timeAsString(timeOfferedEnd)
-	   +" in "+getLocation();
-	   
-	   
-//		
-	   
+	   +" in "+getLocation();	   
 	 
 	   return result;
    }
@@ -150,9 +139,6 @@ public class retakeBean implements Comparable<retakeBean>
    public String retakePrintForStudent() {
 	   String result = onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "+getDateOfRetake()+", at "
 			   +timeAsString(timeOfferedStart) + " - " + timeAsString(timeOfferedEnd)+" in "+getLocation();
-//	   ${r.onlyCapitalizeFirstLetter(r.getDate().getDayOfWeek())}, ${r.onlyCapitalizeFirstLetter(r.getDate().getMonth())}
-//		${r.getDate().getDayOfMonth()}, at ${r.timeAsString(r.getTimeStart())} - ${r.timeAsString(r.getTimeEnd())} in
-//		${r.getLocation()}
 	   
 	   return result;
    }

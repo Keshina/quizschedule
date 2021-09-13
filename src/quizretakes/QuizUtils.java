@@ -29,7 +29,6 @@ public class QuizUtils {
 	
 	// Data files
 			// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
-			// These names show up in all servlets
 			private static final String dataLocation = serverUtils.getDatalocation();
 			static private final String separator = serverUtils.getSeparator();
 			private static final String courseBase = serverUtils.getCoursebase();
@@ -37,7 +36,6 @@ public class QuizUtils {
 			private static final String retakesBase = serverUtils.getRetakesbase();
 			private static final String apptsBase = serverUtils.getApptsbase();
 
-			// Filenames to be built from above and the courseID parameter
 			private String courseFileName;
 			private String quizzesFileName;
 			private String retakesFileName;
@@ -50,7 +48,6 @@ public class QuizUtils {
 		boolean IOerrFlag = false;
 		String IOerrMessage = "";
 		String quizFileName = dataLocation + quizzesBase + "-" + courseID + ".xml";
-				//dataLocation + "quizFile" + courseID + ".xml";
 
 		courseBean course;
 		courseReader cr = new courseReader();
@@ -168,12 +165,7 @@ public class QuizUtils {
 			} 
 
 		} else {
-			/*TO BE DELETED
-			 * // quizDate == null or quizDate.length() > 0 or quizTime !=null or
-			// quizTime.length()>0
-			//out.println("<body bgcolor=\"#DDEEDD\">");
-			//if (quizDate == null || quizTime == null)
-*/				IOerrMessage ="You didn't specify the quiz date and time.";
+			IOerrMessage ="You didn't specify the quiz date and time.";
 
 			thisServlet = (request.getRequestURL()).toString();
 			System.out.println("thisServlet");
@@ -189,8 +181,6 @@ public class QuizUtils {
 
 			pf.printDataForAdmin(request, response, IOerrMessage, isAuthenticated);
 
-			/*out.println(
-					"<p><a href='" + thisServlet + "?courseID=" + courseID + "'>You can try again if you like.</a>");*/
 		}
 
 	}
@@ -199,8 +189,6 @@ public class QuizUtils {
 			throws ParserConfigurationException, SAXException, IOException, TransformerException {
 		String quizFileName =	dataLocation + quizzesBase + "-" + courseID + ".xml";
  
-				//dataLocation + "quizFile" + courseID + ".xml"; //Kesina's test file
-
 		String quizDate = request.getParameter("quizDate");
 		String quizTime = request.getParameter("quizTime");
 

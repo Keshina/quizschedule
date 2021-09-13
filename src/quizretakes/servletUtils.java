@@ -34,9 +34,6 @@ static void displayMessage(String message, String address, HttpServletRequest re
 static void redirectURL(String url, HttpServletRequest request,HttpServletResponse response,  String message) throws IOException {
 
 //         HttpSession session = request.getSession();
-
-        //save message in session
-
 //         session.setAttribute("message", message);
         response.sendRedirect(url);
 

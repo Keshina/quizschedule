@@ -15,9 +15,7 @@ import java.nio.file.Paths;
 public class serverUtils {
 	// Data files
 		// location maps to /webapps/offutt/WEB-INF/data/ from a terminal window.
-		// These names show up in all servlets
 		private static final String dataLocation =getDir();
-				//"C:/Users/Kesina/eclipse-workspace/quizschedule/src/";/// var/www/CS/webapps/offutt/WEB-INF/data/";
 		static private final String separator = ",";
 		private static final String courseBase = "course";
 		private static final String quizzesBase = "quiz-orig";
@@ -229,58 +227,30 @@ public class serverUtils {
 			return pf;
 
 		}
+
 		protected Boolean verifyUser(String user, String password) throws IOException {
-			
-			                        Boolean answer = false;
-				
-			                        // Filenames to be built from above and the courseID
-			
-//			                        private static final String authBase = "quiz-auths";
-				
-			
-			                        String authFileName = dataLocation + authBase + ".txt";
-			
-			
-			                        // Load the quizzes and the retake times from disk
-			
-			        
-			
-			                        auths authList = new auths();
-			
-			                        authenticationReader ar =  new authenticationReader();
-			
-			
-			                        try { // Read the files and print the form
-			
-			                                authList = ar.read(authFileName);
-				
-			                                System.out.println(authList.getSize()+user+password);
-			
-			                                for(authBean a : authList) {
-			
-			                                        System.out.println(a.getUser()+a.getPassword());
-			
-			                                        if(user.equals(a.getUser()) && password.equals(a.getPassword())){
-			
-			                                                answer=true;
-			
-			                                                break;
-			
-			                                        }
-			
-			                                }
-			
-			
-			                        } catch (Exception e) {
-				
-			                                System.err.println("Error reading auth in serverUtils.java");
-				
-			                                e.printStackTrace();
-				
-			                        }
-			
-			                        return answer;
-			
-			
-			                }
+
+			Boolean answer = false;
+			// Filenames to be built from above and the courseID
+			String authFileName = dataLocation + authBase + ".txt";
+			auths authList = new auths();
+
+			authenticationReader ar = new authenticationReader();
+			try { 
+				authList = ar.read(authFileName);
+				for (authBean a : authList) {
+					if (user.equals(a.getUser()) && password.equals(a.getPassword())) {
+						answer = true;
+						break;
+					}
+
+				}
+
+			} catch (Exception e) {
+				System.err.println("Error reading auth in serverUtils.java");
+				e.printStackTrace();
+			}
+			return answer;
+
+		}
 }
