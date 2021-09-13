@@ -126,35 +126,20 @@ public class quizBean implements Comparable<quizBean>
    public String timeWithAMPM() {
 	   String pattern = "hh:mm a";
        DateFormat dateFormat = new SimpleDateFormat(pattern);
-        
-       //1. LocalDate
        LocalTime time = getTime();
        return time.format(DateTimeFormatter.ofPattern(pattern));
-//       System.out.println(now.format(DateTimeFormatter.ofPattern(pattern)));
    }
    
-   public String quizToPrint() {
-//	   HashMap<String, String> tempMap = new HashMap();
-//		tempMap.put("dayOfWeek",r.getDayOfWeek().toString());
-//		tempMap.put("month", r.getMonth().toString());
-//		tempMap.put("date", r.getDateOfRetake().toString());
-//		tempMap.put("time", r.timeAsString().toString());
-//		tempMap.put("location",r.getLocation().toString());
-//		retakeToPrint.put("id", tempMap);
-	   
+   public String quizToPrint() {	   
 	   String result = "Quiz "+ getID()+" : " +onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "+getDateOfQuiz()+", at "
 	   + timeAsString();
-//			   +timeWithAMPM();
 	   return result;
    }
 
    public String quizPrintForStudent() {
+	   // doesn't makes sense to have all these var as attributes with getters in this class so that EL can access them directly. Hence creating a string instead.
 	   String result = "Quiz "+getID()+" from "+onlyCapitalizeFirstLetter(getDayOfWeek().toString())+", "+onlyCapitalizeFirstLetter(getMonth().toString())+" "
    +getDateOfQuiz();
-//	   Quiz ${q.getID()} from ${q.onlyCapitalizeFirstLetter(q.getDayOfWeek())},
-//		${q.onlyCapitalizeFirstLetter(q.getDate().getMonth())} ${q.getDate().getDayOfMonth()}
-	   
-//	   quizInfoStudent= result;
 	   return result;
    }
    

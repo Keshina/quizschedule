@@ -63,9 +63,8 @@ import java.io.IOException;
 
 /*
  * TODO: 1. if courseID== null in any post action ask to reenter the courseId 2.
- * add new function for adding retake 3. add new function for adding appointment
+ * add new function for adding retake 
  */
-//@WebServlet("/src/quizschedule")
 
 @WebServlet("/quizretakes.quizschedule") // uncomment this to run locally
 public class quizschedule extends HttpServlet {
@@ -121,7 +120,7 @@ public class quizschedule extends HttpServlet {
 			 message = "Please enter a course ID and try again.";
 			else
 				message="";
-			if ((query == null || query.isEmpty())) {// && !isAuthenticated) {
+			if ((query == null || query.isEmpty())) {// && !isAuthenticated) { //if used others can't access unless admin logs out.
 				destinationAddress = "/index.jsp";
 			} else
 				destinationAddress = "/admin.jsp";
@@ -176,11 +175,7 @@ public class quizschedule extends HttpServlet {
 			throws ServletException, IOException {
 		thisServlet = request.getRequestURL().toString();
 		// Filename to be built from above and the courseID
-		// courseID = request.getParameter("courseID");
 		String query = request.getParameter("query");
-		// System.out.println("quer"+thisServlet);
-		// if (query.equals("addAppointment"))
-		// addAppointment(response, request);
 		if (query.equals("addQuiz")) {
 			try {
 				QuizUtils qu = new QuizUtils();
@@ -219,9 +214,6 @@ public class quizschedule extends HttpServlet {
 			String destinationAddress;
 			serverUtils srvrUtils = new serverUtils();
 			isAuthenticated = srvrUtils.verifyUser(request.getParameter("username"), request.getParameter("password"));
-			// System.out.println((request.getRequestURI()).toString() + "-----THIs IS LOGIN
-			// requ URI");
-
 			if (isAuthenticated) {
 				System.out.println("AUTHETICATED ");
 				String message = "";
@@ -229,25 +221,13 @@ public class quizschedule extends HttpServlet {
 																							// in 30 mins
 				loginCookie.setMaxAge(30 * 60);
 				response.addCookie(loginCookie);
-				destinationAddress = "/admin.jsp"; //
-//				servletUtils.redirectURL(destinationAddress, request, response, message); will not show admin view
-				// System.out.println((request.getRequestURL()).toString() +"-----THIs IS LOGIN
-				// SUC requ");
-				// System.out.println((request.getRequestURI()).toString() + "-----THIs IS LOGIN
-				// requ URI SUC");
-
+				destinationAddress = "/admin.jsp"; 
 				servletUtils.displayMessage(message, destinationAddress, request, response);
 			} else {
 				System.out.println("NOt AUTHETICATIED");
-				String message = "Login unsuccessful. Try again"; // response.sendRedirect("instructor.jsp");
+				String message = "Login unsuccessful. Try again"; 
 				destinationAddress = "/instructor.jsp";
-				// System.out.println((request.getRequestURL()).toString() +"-----THIs IS LOGIN
-				// BAD requ");
-				// System.out.println((request.getRequestURI()).toString() + "-----THIs IS LOGIN
-				// requ URI BAD");
-
 				servletUtils.displayMessage(message, destinationAddress, request, response);
-				// servletUtils.redirectURL(destinationAddress, request, response, message);
 			}
 		}
 
@@ -271,11 +251,7 @@ public class quizschedule extends HttpServlet {
 				response.addCookie(loginCookie);
 			}
 			destinationAddress = "/instructor.jsp";
-			//servletUtils.displayMessage(message, destinationAddress, request, response); // avoid this because after
-																							// logout have to enter info
-																							// twice
-			System.out.println((request.getRequestURL()).toString() + "-----THIs IS LOGUT requ");
-			System.out.println((request.getRequestURI()).toString() + "-----THIs IS LOGUT requ URI");
+			//servletUtils.displayMessage(message, destinationAddress, request, response); // avoid this because after logout have to enter info twice
 			// To redirect instead of forward: issue is the uri changes after logging out
 			thisServlet = (request.getRequestURL()).toString();
 			if (env.equals("csServer")) {
@@ -284,68 +260,10 @@ public class quizschedule extends HttpServlet {
 				destinationAddress = thisServlet.split("/servlet/")[0] + "/instructor.jsp";
 			}
 			response.sendRedirect(destinationAddress);
-			System.out.println((request.getRequestURL()).toString() + "-----THIs IS LOGUT requ after");
-			System.out.println((request.getRequestURI()).toString() + "-----THIs IS LOGUT requ URI after");
 
 		}
 
 	}
-
-	// private void addAppointment(HttpServletResponse response, HttpServletRequest
-	// request) throws IOException, ServletException { // No saving if IOException
-	// boolean IOerrFlag = false; String IOerrMessage = ""; String apptsFileName =
-	// dataLocation + apptsBase + "-" + courseID + ".txt";
-	//
-	// // Get name and list of retake requests from parameters String studentName =
-	// request.getParameter("studentName"); String[] allIDs =
-	// request.getParameterValues("retakeReqs");
-	//
-	// response.setContentType("text/html"); PrintWriter out = response.getWriter();
-	// // servletUtils.printHeader (out); out.println("<body bgcolor=\"#DDEEDD\">");
-	//
-	// if (allIDs != null && studentName != null && studentName.length() > 0) {
-	// // Append the new appointment to the file try { File file = new
-	// File(apptsFileName); synchronized (file) { // Only one student should touch
-	// this file at a time. if (!file.exists()) { file.createNewFile(); } FileWriter
-	// fw = new FileWriter(file.getAbsoluteFile(), true); // append mode
-	// BufferedWriter bw = new BufferedWriter(fw);
-	//
-	// for (String oneIDPair : allIDs) { bw.write(oneIDPair + separator +
-	// studentName + "\n"); }
-	//
-	// bw.flush(); bw.close(); } // end synchronize block } catch (IOException e) {
-	// IOerrFlag = true; IOerrMessage =
-	// "I failed and could not save your appointment." + e; }
-	//
-	// // Respond to the student if (IOerrFlag) { out.println("<p>");
-	// out.println(IOerrMessage); } else { out.println("<p>"); if (allIDs.length ==
-	// 1) out.println(studentName + ", your appointment has been scheduled."); else
-	// out.println(studentName + ", your appointments have been scheduled."); out.
-	// println("<p>Please arrive in time to finish the quiz before the end of the
-	// retake period."
-	// ); out.
-	// println("<p>If you cannot make it, please cancel by sending email to your
-	// professor."
-	// ); }
-	//
-	// }else
-	//
-	// { // allIDs == null or name is null
-	// out.println("<body bgcolor=\"#DDEEDD\">"); if (allIDs == null)
-	// out.println("<p>You didn't choose any quizzes to retake."); if (studentName
-	// == null || studentName.length() == 0)
-	// out.println("<p>You didn't give a name ... no anonymous quiz retakes.");
-	//
-	// thisServlet = (request.getRequestURL()).toString();
-	// // CS server has a flaw--requires https & 8443, but puts http & 8080 on the
-	// // requestURL //
-	// thisServlet = thisServlet.replace("http", "https"); // thisServlet =
-	// thisServlet.replace("8080", "8443"); out.println("<p><a href='" + thisServlet
-	// + "?courseID=" + courseID +
-	// "&req=addAppointment'>You can try again if you like.</a>"); } //
-	// servletUtils.printFooter(out);
-	//
-	// }
 
 }
 
