@@ -22,11 +22,9 @@ static private final String separator = ",";
 public auths read (String filename) throws IOException
 {
 
-   // read appointments file
    ArrayList<authBean> appts = new ArrayList<authBean>();
    auths authList = new auths();
    authBean auth;
-//   apptBean a;
    File file = new File(filename);
    if (!file.exists())
    {
@@ -52,8 +50,7 @@ public auths read (String filename) throws IOException
       bw.close();
    }
 
-//   return (appts);
-   System.out.println(authList);
+//   System.out.println(authList);
    return authList;
 } // end read
 

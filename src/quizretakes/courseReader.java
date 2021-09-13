@@ -46,10 +46,8 @@ System.out.println("In course Reader, fileName: " +filename);
    
    File file = new File(filename);
    
-//   Document document = builder.parse (new File (filename));
    
    InputStream fis = new FileInputStream(file);
-//   InputSource is = new InputSource(fis);
    Document document = builder.parse(fis);
 
 System.out.println("In course Reader");

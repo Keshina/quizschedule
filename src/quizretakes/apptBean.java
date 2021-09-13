@@ -45,50 +45,5 @@ public class apptBean
       return retakeID + ":" + quizID + ":" + name;
    }
    
-//   public apptBean apptToPrint(ArrayList<apptBean> apptsList, HashMap retakeToPrint) {
-//		List<String> appListToPrint = new ArrayList<>();
-//
-//		HashMap retakeAppt = new HashMap();
-//		HashMap <Integer,HashMap>quizAppt = new HashMap();
-//
-//		for (apptBean a: apptsList) {
-//
-//		String studentDetail ="";
-//		
-//		
-//		Integer rId = a.getRetakeID();
-//		Integer qId = a.getQuizID();
-//		String retakeDetail = (String) retakeToPrint.get(rId);
-//		retakeAppt.put(rId, retakeDetail);
-//		
-//		if(quizAppt.containsKey(rId)) {
-//			HashMap quizAndStudent = (HashMap) quizAppt.get(rId);
-//			if(quizAndStudent.containsKey(qId)) {
-//				String studentList = (String) quizAndStudent.get(qId);
-//				studentList+=", "+a.getName();
-//				quizAndStudent.put(qId,studentList);
-//			}
-//			else {
-//				quizAndStudent.put(qId,a.getName());
-//			}
-//		}
-//			else {
-//				HashMap temp =  new HashMap();
-//				temp.put(qId, a.getName());
-//				quizAppt.put(rId, temp);
-//			}
-//	}
-//	
-//	for (Integer retakeId : quizAppt.keySet())	{	
-//		
-//		HashMap<Integer,String> temp = quizAppt.get(retakeId);
-//		String retakeDetail = (String) retakeAppt.get(retakeId);
-//		String studentDetail="";
-//		for (Integer quizId : temp.keySet())	{	
-//		 studentDetail += "Quiz "+quizId+" : "+temp.get(quizId)+"<br>";
-//		}
-//		String toPrint = retakeDetail+"<br>"+studentDetail;
-//		appListToPrint.add(toPrint);
-//	}	
-//   }
+
 }

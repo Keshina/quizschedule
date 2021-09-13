@@ -40,16 +40,7 @@ public class printQuizScheduleForm {
 	PrintWriter out;
 	int daysAvailable;
 	static private final String separator = ",";
-	
-	
-	/*
-	 * private static final String dataLocation =
-	 * "C:/Users/kesin/eclipse-workspace/quizretakes/src/";///
-	 * var/www/CS/webapps/offutt/WEB-INF/data/"; private static final String
-	 * courseBase = "course"; private static final String quizzesBase = "quiz-orig";
-	 * private static final String retakesBase = "quiz-retakes"; private static
-	 * final String apptsBase = "quiz-appts";
-	 */
+
 
 	// Filenames to be built from above and the courseID parameter
 	private String courseFileName;
@@ -174,10 +165,8 @@ public class printQuizScheduleForm {
 		}
 		for (quizBean q : quizList) {
 			allQuizzes.add(q);
-			quizzesMap.put(Integer.valueOf(q.getID()),q); //old way for admin.jsp
+			quizzesMap.put(Integer.valueOf(q.getID()),q); 
 			quizMapToPrint.put(Integer.valueOf(q.getID()),q.quizToPrint());
-//			System.out.println(q);
-//			System.out.println(q.toString()+"-----------");
 			
 		}
 		HashMap retakeAppt = new HashMap();
@@ -220,11 +209,10 @@ public class printQuizScheduleForm {
 			appListToPrint.add(toPrint);
 		}		
 
-		req.setAttribute("allRetakes", retakeListToPrint); //old way for admin.jsp was allRetakes
+		req.setAttribute("allRetakes", retakeListToPrint); 
 		req.setAttribute("allQuizzes", allQuizzes);
-//		req.setAttribute("quizzesMap", quizzesMap); //old way for admin.jsp
 		req.setAttribute("quizzesMap", quizMapToPrint);
-		req.setAttribute("allAppts", appListToPrint); //old way for admin.jsp allApppts
+		req.setAttribute("allAppts", appListToPrint); 
 		req.setAttribute("message", msg);
 
 		  System.out.println(isAuthenticated);
