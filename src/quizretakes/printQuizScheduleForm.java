@@ -66,7 +66,7 @@ public class printQuizScheduleForm {
 		this.daysAvailable = daysAvailable;
 	}
 
-	private boolean isSkipInTwoWeeks() {// changed-Kesina
+	private boolean isSkipInTwoWeeks() {
 		if (!((today.isBefore(startSkip) && endDay.isBefore(startSkip))
 				|| (today.isAfter(endSkip) && endDay.isAfter(endSkip)))) {
 
@@ -76,7 +76,7 @@ public class printQuizScheduleForm {
 		return skip;
 	}
 
-	private boolean isSkipForQuiz(LocalDate quizDay, LocalDate retakeDay, LocalDate lastAvailableDay) {// changed-Kesina
+	private boolean isSkipForQuiz(LocalDate quizDay, LocalDate retakeDay, LocalDate lastAvailableDay) {
 		if (!quizDay.isAfter(retakeDay) && !retakeDay.isAfter(lastAvailableDay) && !today.isAfter(retakeDay)
 				&& !retakeDay.isAfter(endDay)) {
 
@@ -85,9 +85,8 @@ public class printQuizScheduleForm {
 		return skip;
 	}
 
-	private void extendEndDay() {// changed-Kesina
+	private void extendEndDay() {
 		long diff = ChronoUnit.DAYS.between(startSkip, endSkip);
-//		long diff = Math.abs(duration.toDays());
 		endDay = endDay.plusDays(diff);
 	}
 
@@ -232,7 +231,6 @@ public class printQuizScheduleForm {
 	protected void printForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Check for a week to skip
 		String query = "addAppointment";
-		System.out.println(thisServlet + "-------PrintFORM-------");
 		String courseID = course.getCourseID();
 		today = LocalDate.now();
 		//today = LocalDate.of(2021, 10, 10);// 
@@ -251,7 +249,6 @@ public class printQuizScheduleForm {
 		req.setAttribute("endMonth", endDay.getMonth());
 		req.setAttribute("endDayOfMonth", endDay.getDayOfMonth());
 
-		System.out.println("TODAY AND END DAY SET");
 
 		List<retakeBean> selectedRetakes = new ArrayList<>();
 //		List<String> selectedRetakes = new ArrayList<>();
@@ -281,7 +278,6 @@ public class printQuizScheduleForm {
 
 					retakePrinted = true;
 					selectedRetakes.add(r);
-//					selectedRetakes.add(r.retakePrintForStudent());
 
 					List<quizBean> selectedQuizList = new ArrayList<quizBean>();
 
